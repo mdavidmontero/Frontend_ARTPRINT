@@ -57,7 +57,7 @@ export async function actualizarMaterial(
 
 export async function eliminarMaterial(materialId: string): Promise<void> {
   try {
-    const materialDoc = doc(materialesRef, "materiales", materialId);
+    const materialDoc = doc(db, "materiales", materialId);
     await deleteDoc(materialDoc);
   } catch (error) {
     console.error("Error al eliminar material:", error);

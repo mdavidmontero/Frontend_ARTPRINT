@@ -180,3 +180,19 @@ export const createMaterial = (
   createdAt,
   updatedAt,
 });
+
+export type WhatsApp = {
+  id: string;
+  phoneNumber: string;
+  countryCode: string;
+};
+
+export const createWhatsApp = (
+  id: string,
+  phoneNumber: string,
+  countryCode: string
+): WhatsApp => ({
+  id,
+  phoneNumber,
+  countryCode,
+});

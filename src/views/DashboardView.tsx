@@ -64,7 +64,10 @@ const Dashboard = () => {
           >
             Gestión Materiales
           </button>
-          <button className="w-full py-4 bg-gray-800 hover:bg-gray-900 text-white font-bold rounded-lg shadow-md">
+          <button
+            onClick={() => navigate("/admin/config")}
+            className="w-full py-4 bg-gray-800 hover:bg-gray-900 text-white font-bold rounded-lg shadow-md"
+          >
             Gestión Watsapp
           </button>
         </div>

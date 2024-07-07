@@ -21,6 +21,7 @@ import ColorForm from "./views/admin/gestionColores/ColorForm";
 import GestionColor from "./views/admin/gestionColores/GestionColor";
 import GestionMaterial from "./views/admin/gestionMateriales/GestionMaterial";
 import MaterialForm from "./views/admin/gestionMateriales/MaterialForm";
+import { GestionWhatsApp } from "./views/admin/gestionWatsapp/GestionWatsapp";
 
 const Router = () => {
   const { user } = useAuth();
@@ -69,6 +70,7 @@ const Router = () => {
             <Route path="material" element={<GestionMaterial />} />
             <Route path="nuevoMaterial" element={<MaterialForm />} />
             <Route path="editarMaterial/:id" element={<MaterialForm />} />
+            <Route path="config" element={<GestionWhatsApp />} />
           </Route>
           <Route path="/cliente">
             <Route index element={<Client />} />
