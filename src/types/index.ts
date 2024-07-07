@@ -51,3 +51,132 @@ export type Usuario = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export const createUsuario = (
+  id: string,
+  cedula: string,
+  nombre: string,
+  correo: string,
+  rol: RolUsuario,
+  telefono: string,
+  direccion: string,
+  fotoPerfil: string,
+  createdAt: Date,
+  updatedAt: Date
+): Usuario => ({
+  id,
+  cedula,
+  nombre,
+  correo,
+  rol,
+  telefono,
+  direccion,
+  fotoPerfil,
+  createdAt,
+  updatedAt,
+});
+
+export type Producto = {
+  id: string;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  imagenUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Categoria = {
+  id: string;
+  nombre: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Prenda = {
+  id: string;
+  nombre: string;
+  idCategoria: string;
+  precio: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const createPrenda = (
+  id: string,
+  nombre: string,
+  idCategoria: string,
+  precio: number,
+  createdAt: Date,
+  updatedAt: Date
+): Prenda => ({
+  id,
+  nombre,
+  idCategoria,
+  precio,
+  createdAt,
+  updatedAt,
+});
+
+export type Talla = {
+  id: string;
+  nombre: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const createTalla = (
+  id: string,
+  nombre: string,
+  createdAt: Date,
+  updatedAt: Date
+): Talla => ({
+  id,
+  nombre,
+  createdAt,
+  updatedAt,
+});
+
+export type Color = {
+  id: string;
+  nombre: string;
+  codigo?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const createColor = (
+  id: string,
+  nombre: string,
+  codigo: string | undefined,
+  createdAt: Date,
+  updatedAt: Date
+): Color => ({
+  id,
+  nombre,
+  codigo,
+  createdAt,
+  updatedAt,
+});
+
+export type Material = {
+  id: string;
+  nombre: string;
+  precioExtra: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const createMaterial = (
+  id: string,
+  nombre: string,
+  precioExtra: number,
+  createdAt: Date,
+  updatedAt: Date
+): Material => ({
+  id,
+  nombre,
+  precioExtra,
+  createdAt,
+  updatedAt,
+});

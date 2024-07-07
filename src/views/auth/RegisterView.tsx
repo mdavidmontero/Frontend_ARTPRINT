@@ -3,10 +3,10 @@ import { RolUsuario, UserRegistrationForm } from "../../types";
 import { Link } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import { toast } from "react-toastify";
-import useAuth from "../../hooks/useAuth";
+import { useAuthStores } from "../../store/userAuthStore";
 
 export default function RegisterView() {
-  const { registerUser } = useAuth();
+  const registerUser = useAuthStores((state) => state.registerUser);
   const initialValues: UserRegistrationForm = {
     name: "",
     identificacion: "",

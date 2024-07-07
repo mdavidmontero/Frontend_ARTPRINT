@@ -3,10 +3,10 @@ import { UserLoginForm } from "../../types";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ErrorMessage from "../../components/ErrorMessage";
-import useAuth from "../../hooks/useAuth";
+import { useAuthStores } from "../../store/userAuthStore";
 
 export default function LoginView() {
-  const { loginUser } = useAuth();
+  const loginUser = useAuthStores((state) => state.loginUser);
   const initialValues: UserLoginForm = {
     email: "",
     password: "",
@@ -24,7 +24,7 @@ export default function LoginView() {
       await loginUser(formData.email, formData.password);
       navigate("/");
     } catch (error) {
-      toast.error("Error al iniciar sesión");
+      toast.error("Credenciales Incorrectas, Intente Nuevamente");
     }
   };
   return (

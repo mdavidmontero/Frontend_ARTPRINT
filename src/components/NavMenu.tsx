@@ -3,17 +3,24 @@ import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { User } from "../types";
-import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 type NavMenuProps = {
   name: User["name"];
 };
 
 export default function NavMenu({ name }: NavMenuProps) {
-  const queryClient = useQueryClient();
-  const logout = () => {
-    localStorage.removeItem("AUTH_TOKEN");
-    queryClient.invalidateQueries({ queryKey: ["user"] });
+  const { logOutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logOutUser();
+      navigate("/auth/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -43,7 +50,7 @@ export default function NavMenu({ name }: NavMenuProps) {
             <button
               className="block p-2 hover:text-purple-950"
               type="button"
-              onClick={logout}
+              onClick={handleLogout}
             >
               Cerrar Sesión
             </button>
