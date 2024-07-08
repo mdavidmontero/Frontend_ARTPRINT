@@ -25,6 +25,7 @@ import { obtenerMaterialPorId } from "./MaterialAPI";
 import { obtenerColorPorId } from "./ColoresAPI";
 import { obtenerTallaPorId } from "./TallaAPI";
 import { obtenerUsuarioPorId } from "./UsuarioAPI";
+import { toast } from "react-toastify";
 
 class CarritoController {
   private db: Firestore;
@@ -266,6 +267,15 @@ class CarritoController {
         mensaje
       )}`;
 
+      toast.success("Compra realizada con exito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       const opened = window.open(whatsappLink, "_blank");
 
       if (opened) {

@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
-import useAuthStore from "../../store/authStore";
+import { useParams, useNavigate } from "react-router-dom";
 import { obtenerTodasLasTallas } from "../../api/TallaAPI";
 import { obtenerTodosLosColores } from "../../api/ColoresAPI";
 import { obtenerTodosLosMateriales } from "../../api/MaterialAPI";
@@ -60,6 +54,7 @@ export const DetallesDeProducto = () => {
         }
       };
       fetchProduct();
+      console.log(user?.uid);
     }
   }, [id]);
 

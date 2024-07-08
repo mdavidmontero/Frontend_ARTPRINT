@@ -5,6 +5,8 @@ import { ItemCarrito } from "../../types";
 import { obtenerNumeroWhatsAppPorIdDefault } from "../../api/WhatsAppAPI";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import { formatCurrency } from "../../utils/index";
+import Spinner from "../../components/spinner/Spinner";
 
 const CarritoDeCompras = () => {
   const [carrito, setCarrito] = useState<ItemCarrito[]>([]);
@@ -139,12 +141,13 @@ const CarritoDeCompras = () => {
       const vendedorWhatsapp = vendedorWhatsApp;
 
       // Simulación de Alerta para propósitos educativos, reemplazar con tu propia lógica
-      toast.success(
-        "Compra realizada. Se abrirá WhatsApp para que puedas contactar al vendedor."
-      );
 
       // Aquí deberías implementar la lógica para abrir WhatsApp en el navegador
-
+      setTimeout(() => {
+        toast.success(
+          "Compra realizada. Se abrirá WhatsApp para que puedas contactar al vendedor."
+        );
+      }, 1000);
       await carritoController.comprarCarrito(
         carritoUsuario.id,
         vendedorWhatsapp
@@ -158,7 +161,7 @@ const CarritoDeCompras = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        <Spinner />
       </div>
     );
   }
@@ -201,7 +204,7 @@ const CarritoDeCompras = () => {
         </div>
         <div className="p-4 bg-gray-100 border-t border-gray-300 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-800">
-            Total: ${totalCarrito}
+            Total: {formatCurrency(+totalCarrito)}
           </h2>
           <button
             className="bg-purple-600 py-3 px-6 rounded-lg text-white font-bold"
