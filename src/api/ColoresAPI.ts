@@ -28,7 +28,7 @@ export async function obtenerColorPorId(
   colorId: string
 ): Promise<Color | null> {
   try {
-    const colorDocRef = doc(coloresRef, "colores", colorId);
+    const colorDocRef = doc(db, "colores", colorId);
     const colorDocSnap = await getDoc(colorDocRef);
     if (colorDocSnap.exists()) {
       return colorDocSnap.data() as Color;

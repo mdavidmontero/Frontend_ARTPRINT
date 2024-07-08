@@ -196,3 +196,37 @@ export const createWhatsApp = (
   phoneNumber,
   countryCode,
 });
+
+export type ItemCarrito = {
+  productoId: string;
+  imagen: string;
+  nombre: string;
+  idPrenda: string;
+  idMaterial: string;
+  idColor: string;
+  talla: string;
+  genero: string;
+  cantidad: number;
+  precio: number;
+};
+export type Carrito = {
+  id: string;
+  usuarioId: string;
+  items: ItemCarrito[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const createCarrito = (
+  id: string,
+  usuarioId: string,
+  items: ItemCarrito[],
+  createdAt: Date,
+  updatedAt: Date
+): Carrito => ({
+  id,
+  usuarioId,
+  items,
+  createdAt,
+  updatedAt,
+});

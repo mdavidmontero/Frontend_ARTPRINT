@@ -22,6 +22,9 @@ import GestionColor from "./views/admin/gestionColores/GestionColor";
 import GestionMaterial from "./views/admin/gestionMateriales/GestionMaterial";
 import MaterialForm from "./views/admin/gestionMateriales/MaterialForm";
 import { GestionWhatsApp } from "./views/admin/gestionWatsapp/GestionWatsapp";
+import Home from "./views/client/Home";
+import { DetallesDeProducto } from "./views/client/DetallesDeProducto";
+import CarritoDeCompras from "./views/client/CarritoDeCompras";
 
 const Router = () => {
   const { user } = useAuth();
@@ -29,10 +32,13 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         {/* Rutas bajo el layout de AppLayout */}
+        <Route path="/" element={<Home />} />
+        <Route path="/detallesProducto/:id" element={<DetallesDeProducto />} />
+        <Route path="/carritoCompras" element={<CarritoDeCompras />} />
         <Route element={<AppLayout />}>
           {/* Ruta inicial */}
           <Route
-            path="/"
+            path="/inicio"
             element={
               user ? (
                 user?.role === "ADMIN" ? (
@@ -41,7 +47,7 @@ const Router = () => {
                   <Navigate to="/cliente" />
                 )
               ) : (
-                <Navigate to="/auth/login" />
+                <Home />
               )
             }
             index
@@ -72,7 +78,7 @@ const Router = () => {
             <Route path="editarMaterial/:id" element={<MaterialForm />} />
             <Route path="config" element={<GestionWhatsApp />} />
           </Route>
-          <Route path="/cliente">
+          <Route path="/cliente" element={<Home />}>
             <Route index element={<Client />} />
             <Route path="productos" element={<GestionProducto />} />
           </Route>

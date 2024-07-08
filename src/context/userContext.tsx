@@ -31,6 +31,7 @@ type AuthContextType = {
   loginUser: (email: string, password: string) => Promise<UserCredential>;
   logOutUser: () => Promise<void>;
   cargando: boolean;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
 export const UserContext = createContext<AuthContextType | undefined>(
@@ -91,7 +92,7 @@ const UserProvider = ({ children }: AuthContextProps) => {
 
   return (
     <UserContext.Provider
-      value={{ user, registerUser, loginUser, logOutUser, cargando }}
+      value={{ user, registerUser, loginUser, logOutUser, cargando, setUser }}
     >
       {children}
     </UserContext.Provider>
