@@ -4,14 +4,22 @@ import { obtenerTodasLasTallas } from "../../api/TallaAPI";
 import { obtenerTodosLosColores } from "../../api/ColoresAPI";
 import { obtenerTodosLosMateriales } from "../../api/MaterialAPI";
 import { obtenerTodasLasCategorias } from "../../api/CategoriasAPI";
-import { Categoria, Color, Material, Prenda, Talla } from "../../types";
+import {
+  Categoria,
+  Color,
+  Colors,
+  Material,
+  Prenda,
+  Producto,
+  Talla,
+} from "../../types";
 import CarritoController from "../../api/CarritoAPI";
-
 import { obtenerPrendasPorCategoria } from "../../api/PrendaAPI";
 import { obtenerProductoPorId } from "../../api/ProductosAPI";
 import { toast } from "react-toastify";
-const carritoController = new CarritoController();
 import useAuth from "../../hooks/useAuth";
+
+const carritoController = new CarritoController();
 
 export const DetallesDeProducto = () => {
   const { id } = useParams();
@@ -19,7 +27,7 @@ export const DetallesDeProducto = () => {
   const usuarioId = user?.uid;
   const navigate = useNavigate();
   const [tallas, setTallas] = useState<Talla[]>([]);
-  const [colores, setColores] = useState<Color[]>([]);
+  const [colores, setColores] = useState<Colors[]>([]);
   const [materiales, setMateriales] = useState<Material[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [prendas, setPrendas] = useState<Prenda[]>([]);
@@ -33,13 +41,7 @@ export const DetallesDeProducto = () => {
   const [addToCartDisabled, setAddToCartDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const [producto, setProducto] = useState({
-    id: "",
-    nombre: "",
-    descripcion: "",
-    precio: 0,
-    imagenUrl: "",
-  });
+  const [producto, setProducto] = useState<Producto | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -140,16 +142,18 @@ export const DetallesDeProducto = () => {
       }
 
       const itemCarrito = {
-        productoId: producto.id,
-        imagen: producto.imagenUrl,
-        nombre: producto.nombre,
+        productoId: producto!.id,
+        imagen:
+          producto!.colores.find((color) => color.id === selectedColor)
+            ?.imagenUrl || producto!.colores[0].imagenUrl,
+        nombre: producto!.nombre,
         idPrenda: selectedPrenda,
         idMaterial: selectedMaterial,
         idColor: selectedColor,
         talla: selectedTalla,
         genero: selectedGenero,
         cantidad: cantidad,
-        precio: producto.precio,
+        precio: producto!.precio,
       };
 
       await carritoController.agregarProductoAlCarrito(
@@ -169,6 +173,19 @@ export const DetallesDeProducto = () => {
   const handleDecrement = () => {
     if (cantidad > 1) setCantidad(cantidad - 1);
   };
+  const coloresProducto = producto?.colores.map((color) => color.id) || [];
+
+  const coloresDisponibles = colores.filter((color) =>
+    coloresProducto.includes(color.id)
+  );
+
+  const sacarColores = producto?.colores.map((product) => product.id);
+  console.log("sacar colores", sacarColores);
+
+  console.log("colores finales: ", coloresDisponibles);
+  console.log("id color", selectedColor);
+
+  // const sacarUrlImagen =
 
   if (loading) {
     return (
@@ -231,21 +248,24 @@ export const DetallesDeProducto = () => {
       <div className="w-full max-w-3xl bg-white shadow-md rounded-lg overflow-hidden">
         <div className="flex justify-center bg-purple-100">
           <img
-            src={producto.imagenUrl}
-            alt={producto.nombre}
+            src={
+              producto!.colores.find((color) => color.id === selectedColor)
+                ?.imagenUrl || producto!.colores[0].imagenUrl
+            }
+            alt={producto!.nombre}
             className="w-full h-80 object-cover"
           />
         </div>
         <div className="p-6">
           <div className="mb-4">
             <h1 className="text-2xl font-bold text-center">
-              {producto.nombre}
+              {producto!.nombre}
             </h1>
             <p className="text-gray-700 text-center mb-2">
-              {producto.descripcion}
+              {producto!.descripcion}
             </p>
             <p className="text-xl font-semibold text-center">
-              ${producto.precio.toFixed(2)}
+              ${producto!.precio.toFixed(2)}
             </p>
           </div>
 
@@ -257,7 +277,7 @@ export const DetallesDeProducto = () => {
           )}
           {renderOptions(
             "Selecciona el color",
-            colores,
+            coloresDisponibles,
             selectedColor,
             setSelectedColor
           )}
