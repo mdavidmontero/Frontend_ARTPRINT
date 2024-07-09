@@ -5,8 +5,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../hooks/useAuth";
 export default function AppLayout() {
-  // Ruta Protegida
-
   const { user, cargando } = useAuth();
   if (cargando) return "Cargando";
 

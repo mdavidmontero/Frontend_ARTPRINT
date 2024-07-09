@@ -17,7 +17,7 @@ export default function NavMenu({ name }: NavMenuProps) {
   const handleLogout = async () => {
     try {
       await logOutUser();
-      navigate("/auth/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

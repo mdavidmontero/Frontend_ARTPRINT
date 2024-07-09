@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthStores } from "../store/userAuthStore";
+import useAuth from "../hooks/useAuth";
 const Dashboard = () => {
-  const logOutUser = useAuthStores((state) => state.logOutUser);
+  const { logOutUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await logOutUser();
-      navigate("/auth/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

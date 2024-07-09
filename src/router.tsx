@@ -5,7 +5,6 @@ import LoginView from "./views/auth/LoginView";
 import RegisterView from "./views/auth/RegisterView";
 import NotFoundView from "./views/404/NotFoundView";
 import useAuth from "./hooks/useAuth";
-import Client from "./views/client/Client";
 import Dashboard from "./views/DashboardView";
 import GestionProducto from "./views/admin/gestionProductos/GestionProducto";
 import ProductoForm from "./views/admin/gestionProductos/ProductForm";
@@ -33,12 +32,12 @@ const Router = () => {
       <Routes>
         {/* Rutas bajo el layout de AppLayout */}
         <Route path="/" element={<Home />} />
+
         <Route path="/detallesProducto/:id" element={<DetallesDeProducto />} />
-        <Route path="/carritoCompras" element={<CarritoDeCompras />} />
         <Route element={<AppLayout />}>
           {/* Ruta inicial */}
           <Route
-            path="/inicio"
+            path="/home"
             element={
               user ? (
                 user?.role === "ADMIN" ? (
@@ -79,8 +78,13 @@ const Router = () => {
             <Route path="config" element={<GestionWhatsApp />} />
           </Route>
           <Route path="/cliente" element={<Home />}>
-            <Route index element={<Client />} />
+            <Route index element={<Home />} />
             <Route path="productos" element={<GestionProducto />} />
+            <Route
+              path="detallesProducto/:id"
+              element={<DetallesDeProducto />}
+            />
+            <Route path="carritoCompras" element={<CarritoDeCompras />} />
           </Route>
         </Route>
 
