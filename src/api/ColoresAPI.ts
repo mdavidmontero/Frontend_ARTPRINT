@@ -9,7 +9,7 @@ import {
   getDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { Color } from "../types";
+import { Color, Colors } from "../types";
 import { db } from "../config/firebase";
 
 const coloresRef = collection(db, "colores");
@@ -65,14 +65,14 @@ export async function eliminarColor(colorId: string): Promise<void> {
   }
 }
 
-export async function obtenerTodosLosColores(): Promise<Color[]> {
+export async function obtenerTodosLosColores(): Promise<Colors[]> {
   try {
     const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(
       coloresRef
     );
-    const colores: Color[] = [];
+    const colores: Colors[] = [];
     querySnapshot.forEach((doc) => {
-      colores.push(doc.data() as Color);
+      colores.push(doc.data() as Colors);
     });
     return colores;
   } catch (error) {

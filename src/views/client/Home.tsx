@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  //   const { user, setUser } = useAuth();
+  // const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   const cargarData = async () => {
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
             {filteredProductos.map((producto, index) => (
               <TarjetaDeProducto
                 key={index}
-                imagen={producto.imagenUrl}
+                imagen={producto.colores[0]?.imagenUrl || ""}
                 titulo={producto.nombre}
                 precio={producto.precio.toString()}
                 onPress={() => navigate("/detallesProducto/" + producto.id)}

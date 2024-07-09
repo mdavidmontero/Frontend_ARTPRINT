@@ -76,15 +76,30 @@ export const createUsuario = (
   updatedAt,
 });
 
+export type Colors = {
+  id: string;
+  nombre: string;
+  imagenUrl: string;
+};
+
 export type Producto = {
   id: string;
   nombre: string;
   descripcion: string;
   precio: number;
-  imagenUrl: string;
+  colores: Colors[];
   createdAt: Date;
   updatedAt: Date;
 };
+// export type Producto = {
+//   id: string;
+//   nombre: string;
+//   descripcion: string;
+//   precio: number;
+//   imagenUrl: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+// };
 
 export type Categoria = {
   id: string;

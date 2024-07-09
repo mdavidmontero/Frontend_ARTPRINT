@@ -8,8 +8,10 @@ import {
   query,
   orderBy,
   getDocs,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
-import { Producto } from "../types";
+import { Producto, Color } from "../types";
 import { db } from "../config/firebase";
 
 const productosRef = collection(db, "productos");
@@ -76,5 +78,35 @@ export const obtenerProductos = async (): Promise<Producto[] | null> => {
   } catch (error) {
     console.error("Error al obtener productos:", error);
     return null;
+  }
+};
+
+export const agregarColor = async (
+  productId: string,
+  color: Color
+): Promise<void> => {
+  try {
+    const productoDoc = doc(db, "productos", productId);
+    await updateDoc(productoDoc, {
+      colores: arrayUnion(color),
+    });
+  } catch (error) {
+    console.error("Error al agregar color al producto:", error);
+    throw error;
+  }
+};
+
+export const eliminarColor = async (
+  productId: string,
+  color: Color
+): Promise<void> => {
+  try {
+    const productoDoc = doc(db, "productos", productId);
+    await updateDoc(productoDoc, {
+      colores: arrayRemove(color),
+    });
+  } catch (error) {
+    console.error("Error al eliminar color del producto:", error);
+    throw error;
   }
 };
