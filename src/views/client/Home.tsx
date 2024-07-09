@@ -3,18 +3,38 @@ import { useNavigate } from "react-router-dom";
 import { Producto } from "../../types";
 import TarjetaDeProducto from "../../components/shared/TarjetaDeProducto";
 import { obtenerProductos } from "../../api/ProductosAPI";
+import useAuth from "../../hooks/useAuth";
 
 const Home: React.FC = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  // const { user, setUser } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    switch (user.role) {
+      case "ADMIN":
+        navigate("/admin");
+        break;
+      case "CLIENTE":
+        navigate("/cliente");
+        break;
+      default:
+        break;
+    }
+  }, [user, navigate]);
 
   const cargarData = async () => {
     try {
       await cargarProductos();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+    }
   };
 
   useEffect(() => {

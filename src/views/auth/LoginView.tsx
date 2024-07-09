@@ -3,10 +3,11 @@ import { UserLoginForm } from "../../types";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ErrorMessage from "../../components/ErrorMessage";
-import { useAuthStores } from "../../store/userAuthStore";
-
+import useAuth from "../../hooks/useAuth";
+import { obtenerUsuarioPorId } from "../../api/UsuarioAPI";
 export default function LoginView() {
-  const loginUser = useAuthStores((state) => state.loginUser);
+  const { loginUser, setUser } = useAuth();
+
   const initialValues: UserLoginForm = {
     email: "",
     password: "",
@@ -21,8 +22,23 @@ export default function LoginView() {
 
   const handleLogin = async (formData: UserLoginForm) => {
     try {
-      await loginUser(formData.email, formData.password);
-      navigate("/");
+      const data = await loginUser(formData.email, formData.password);
+      const obtenerUserId = await obtenerUsuarioPorId(data.user.uid);
+      const user = {
+        uid: obtenerUserId!.id,
+        email: obtenerUserId!.correo,
+        role: obtenerUserId?.rol,
+      };
+      setUser(user);
+      console.log(obtenerUserId);
+
+      if (user!.role === "ADMIN") {
+        navigate("/admin");
+      } else if (user!.role === "CLIENTE") {
+        navigate("/cliente");
+      } else {
+        navigate("/auth/login");
+      }
     } catch (error) {
       toast.error("Credenciales Incorrectas, Intente Nuevamente");
     }
