@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useImageUpload } from "../../../api/UploadImages";
-import { Producto, Colors } from "../../../types";
+import { Producto, Colors, Categoria } from "../../../types"; 
 import { obtenerTodosLosColores } from "../../../api/ColoresAPI";
 import {
   actualizarProducto,
   crearProducto,
   obtenerProductoPorId,
 } from "../../../api/ProductosAPI";
+import { obtenerTodasLasCategorias } from "../../../api/CategoriasAPI"; 
 
 const ProductoForm = () => {
   const [producto, setProducto] = useState<Producto>({
@@ -16,12 +17,14 @@ const ProductoForm = () => {
     nombre: "",
     descripcion: "",
     precio: 0,
+    idCategoria: "", 
     colores: [],
     createdAt: new Date(),
     updatedAt: new Date(),
   });
   const [loading, setLoading] = useState(false);
   const [coloresDisponibles, setColoresDisponibles] = useState<Colors[]>([]);
+  const [categoriasDisponibles, setCategoriasDisponibles] = useState<Categoria[]>([]); 
 
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -53,6 +56,19 @@ const ProductoForm = () => {
     };
 
     fetchColores();
+  }, []);
+
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const categorias = await obtenerTodasLasCategorias();
+        setCategoriasDisponibles(categorias);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategorias();
   }, []);
 
   const handleAddColor = () => {
@@ -106,6 +122,7 @@ const ProductoForm = () => {
         !producto.nombre.trim() ||
         !producto.descripcion.trim() ||
         !producto.precio ||
+        !producto.idCategoria || 
         producto.colores.some(
           (color) => !color.id.trim() || !color.imagenUrl.trim()
         )
@@ -130,6 +147,7 @@ const ProductoForm = () => {
           nombre: "",
           descripcion: "",
           precio: 0,
+          idCategoria: "", 
           colores: [],
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -174,6 +192,24 @@ const ProductoForm = () => {
           }
         />
 
+        <div className="mb-4">
+          <h2 className="text-xl font-bold mb-4">Categoría</h2>
+          <select
+            className="border border-gray-300 rounded px-3 py-2 w-full"
+            value={producto.idCategoria}
+            onChange={(e) =>
+              setProducto({ ...producto, idCategoria: e.target.value })
+            }
+          >
+            <option value="">-- Selecciona una categoría --</option>
+            {categoriasDisponibles.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <h2 className="text-xl font-bold mb-4">Colores</h2>
         {producto.colores.map((color, index) => (
           <div key={index} className="mb-4 border border-gray-300 p-4 rounded">
@@ -198,8 +234,7 @@ const ProductoForm = () => {
               <input
                 type="file"
                 className="bg-purple-600 text-white px-4 py-2 rounded w-full"
-                name="file"
-                id={`file-${index}`}
+                name={`file-${index}`}
                 disabled={loading}
                 onChange={(e) => handleFileChange(e, index)}
               />

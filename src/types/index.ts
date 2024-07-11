@@ -87,6 +87,7 @@ export type Producto = {
   nombre: string;
   descripcion: string;
   precio: number;
+  idCategoria: string;
   colores: Colors[];
   createdAt: Date;
   updatedAt: Date;
@@ -216,7 +217,6 @@ export type ItemCarrito = {
   productoId: string;
   imagen: string;
   nombre: string;
-  idPrenda: string;
   idMaterial: string;
   idColor: string;
   talla: string;
