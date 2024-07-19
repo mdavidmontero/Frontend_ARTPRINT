@@ -43,53 +43,58 @@ const GestionProducto: React.FC = () => {
         ) : (
           <>
             <div className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl font-bold">Productos</h1>
+              <h1 className="text-2xl font-semibold">Gestión Prendas</h1>
               <button
-                className="bg-purple-600 text-white px-4 py-2 rounded"
+                className="bg-purple-600 text-white px-9 py-2 rounded-full font-bold"
                 onClick={() => navigate("/admin/nuevoProducto")}
               >
-                Añadir Producto
+                Añadir
               </button>
             </div>
             <input
-              className="border border-gray-300 rounded p-2 mb-4 w-full"
+              className="bg-gray-300 border border-gray-300 rounded p-2 mb-4 w-2/5 placeholder:text-gray-600 placeholder:font-semibold"
               type="text"
               placeholder="Buscar"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <div className="grid grid-cols-3 gap-4 mb-2 font-bold">
-              <div>Nombre</div>
-              <div>Precio</div>
-              <div>Acciones</div>
-            </div>
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="grid grid-cols-3 gap-4 items-center border-b py-2"
-              >
-                <div>{product.nombre}</div>
-                <div>{product.precio}</div>
-                <div className="flex space-x-2">
-                  <button
-                    className="bg-purple-600 text-white px-4 py-2 rounded"
-                    onClick={() => handleEdit(product.id)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="bg-red-600 text-white px-4 py-2 rounded"
-                    onClick={() =>
-                      navigate(
-                        location.pathname + `?handleDelete=${product.id}`
-                      )
-                    }
-                  >
-                    Eliminar
-                  </button>
+            <div className="mt-4 p-6 bg-white shadow w-full">
+              <div className="grid grid-cols-3  mb-2 font-semibold bg-customYellow text-black w-full rounded-md">
+                <div className="p-2 font-arima font-bold">Nombre</div>
+                <div className="p-2 font-arima font-bold">Precio</div>
+                <div className="p-2 font-arima font-bold text-center">
+                  Acciones
                 </div>
               </div>
-            ))}
+              {filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="grid grid-cols-3 items-center border-b border-b-slate-400  py-2"
+                >
+                  <div className="font-arima">{product.nombre}</div>
+                  <div className="font-arima">{product.precio}</div>
+                  <div className="flex space-x-2 justify-center">
+                    <button
+                      className="bg-customBlue text-white rounded-lg w-32 p-2 uppercase font-bold text-sm text-center"
+                      onClick={() => handleEdit(product.id)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="bg-customRed text-white rounded-lg w-32 p-2 uppercase font-bold text-center"
+                      onClick={() =>
+                        navigate(
+                          location.pathname + `?handleDelete=${product.id}`
+                        )
+                      }
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {error && <div className="text-red-600 mt-4">Error: {error}</div>}
           </>
         )}

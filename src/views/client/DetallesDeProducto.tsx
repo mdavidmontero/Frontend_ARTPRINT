@@ -6,9 +6,9 @@ import { obtenerTodosLosMateriales } from "../../api/MaterialAPI";
 import { obtenerTodasLasCategorias } from "../../api/CategoriasAPI";
 import {
   Categoria,
-  Color,
   Colors,
   Material,
+  Prenda,
   Producto,
   Talla,
 } from "../../types";
@@ -29,12 +29,12 @@ export const DetallesDeProducto = () => {
   const [colores, setColores] = useState<Colors[]>([]);
   const [materiales, setMateriales] = useState<Material[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
-  // const [prendas, setPrendas] = useState<Prenda[]>([]);
+  const [prendas, setPrendas] = useState<Prenda[]>([]);
   const [selectedTalla, setSelectedTalla] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedMaterial, setSelectedMaterial] = useState<string>("");
   const [selectedCategoria, setSelectedCategoria] = useState<string>("");
-  // const [selectedPrenda, setSelectedPrenda] = useState<string>("");
+  const [selectedPrenda, setSelectedPrenda] = useState<string>("");
   const [selectedGenero, setSelectedGenero] = useState<string>("");
   const [cantidad, setCantidad] = useState<number>(1);
   const [addToCartDisabled, setAddToCartDisabled] = useState(true);
@@ -83,23 +83,23 @@ export const DetallesDeProducto = () => {
     fetchData();
   }, [id]);
 
-  // useEffect(() => {
-  //   const fetchPrendas = async () => {
-  //     if (selectedCategoria) {
-  //       try {
-  //         const prendasData = await obtenerPrendasPorCategoria(
-  //           selectedCategoria
-  //         );
-  //         setPrendas(prendasData);
-  //         setSelectedPrenda(prendasData.length > 0 ? prendasData[0].id : "");
-  //       } catch (error) {
-  //         console.error("Error al cargar prendas:", error);
-  //       }
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchPrendas = async () => {
+      if (selectedCategoria) {
+        try {
+          const prendasData = await obtenerPrendasPorCategoria(
+            selectedCategoria
+          );
+          setPrendas(prendasData);
+          setSelectedPrenda(prendasData.length > 0 ? prendasData[0].id : "");
+        } catch (error) {
+          console.error("Error al cargar prendas:", error);
+        }
+      }
+    };
 
-  //   fetchPrendas();
-  // }, [selectedCategoria]);
+    fetchPrendas();
+  }, [selectedCategoria]);
 
   useEffect(() => {
     const allSelectionsMade = [
@@ -183,8 +183,6 @@ export const DetallesDeProducto = () => {
 
   console.log("colores finales: ", coloresDisponibles);
   console.log("id color", selectedColor);
-
-  // const sacarUrlImagen =
 
   if (loading) {
     return (
@@ -292,13 +290,13 @@ export const DetallesDeProducto = () => {
             selectedCategoria,
             setSelectedCategoria
           )}
-          {/* {selectedCategoria &&
+          {selectedCategoria &&
             renderOptions(
               "Selecciona la prenda",
               prendas,
               selectedPrenda,
               setSelectedPrenda
-            )} */}
+            )}
           {renderSimpleOptions(
             "Selecciona el género",
             ["Hombre", "Mujer", "Unisex"],

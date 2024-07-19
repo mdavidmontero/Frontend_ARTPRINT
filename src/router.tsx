@@ -24,67 +24,77 @@ import { GestionWhatsApp } from "./views/admin/gestionWatsapp/GestionWatsapp";
 import Home from "./views/client/Home";
 import { DetallesDeProducto } from "./views/client/DetallesDeProducto";
 import CarritoDeCompras from "./views/client/CarritoDeCompras";
+import RutaProtegida from "./layouts/RutaProtegida";
+import { useState } from "react";
+import HomeLayout from "./layouts/HomeLayout";
+import ProfileForm from "./views/admin/gestionUsuarios/ProfileForm";
 
 const Router = () => {
   const { user } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas bajo el layout de AppLayout */}
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<HomeLayout setSearchQuery={setSearchQuery} />}
+        >
+          <Route
+            path="/"
+            element={
+              <Home setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
+            }
+          />
+        </Route>
 
         <Route path="/detallesProducto/:id" element={<DetallesDeProducto />} />
-        <Route element={<AppLayout />}>
-          {/* Ruta inicial */}
-          <Route
-            path="/home"
-            element={
-              user ? (
-                user?.role === "ADMIN" ? (
-                  <Navigate to="/admin" />
-                ) : (
-                  <Navigate to="/cliente" />
-                )
-              ) : (
-                <Home />
-              )
-            }
-            index
-          />
 
-          <Route path="/admin">
-            <Route index element={<Dashboard />} />
-            <Route path="productos" element={<GestionProducto />} />
-            <Route path="nuevoProducto" element={<ProductoForm />} />
-            <Route path="editarProducto/:id" element={<ProductoForm />} />
-            <Route path="categorias" element={<GestionCategoria />} />
-            <Route path="nuevaCategoria" element={<CategoriaForm />} />
-            <Route path="editarCategoria/:id" element={<CategoriaForm />} />
-            <Route path="prendas" element={<GestionPrenda />} />
-            <Route path="nuevaPrenda" element={<PrendaForm />} />
-            <Route path="editarPrenda/:id" element={<PrendaForm />} />
-            <Route path="tallas" element={<GestionTalla />} />
-            <Route path="nuevaTalla" element={<TallaForm />} />
-            <Route path="editarTalla/:id" element={<TallaForm />} />
-            <Route path="usuarios" element={<GestionUsuarios />} />
-            <Route path="nuevoUsuario" element={<UsuarioForm />} />
-            <Route path="editarUsuario/:id" element={<UsuarioForm />} />
-            <Route path="color" element={<GestionColor />} />
-            <Route path="nuevoColor" element={<ColorForm />} />
-            <Route path="editarColor/:id" element={<ColorForm />} />
-            <Route path="material" element={<GestionMaterial />} />
-            <Route path="nuevoMaterial" element={<MaterialForm />} />
-            <Route path="editarMaterial/:id" element={<MaterialForm />} />
-            <Route path="config" element={<GestionWhatsApp />} />
-          </Route>
-          <Route path="/cliente" element={<Home />}>
-            <Route index element={<Home />} />
-            <Route path="productos" element={<GestionProducto />} />
-            <Route
-              path="detallesProducto/:id"
-              element={<DetallesDeProducto />}
-            />
-            <Route path="carritoCompras" element={<CarritoDeCompras />} />
+        <Route element={<RutaProtegida />}>
+          <Route element={<AppLayout setSearchQuery={setSearchQuery} />}>
+            <Route path="/admin">
+              <Route index element={<Dashboard />} />
+              <Route path="productos" element={<GestionProducto />} />
+              <Route path="nuevoProducto" element={<ProductoForm />} />
+              <Route path="editarProducto/:id" element={<ProductoForm />} />
+              <Route path="categorias" element={<GestionCategoria />} />
+              <Route path="nuevaCategoria" element={<CategoriaForm />} />
+              <Route path="editarCategoria/:id" element={<CategoriaForm />} />
+              <Route path="prendas" element={<GestionPrenda />} />
+              <Route path="nuevaPrenda" element={<PrendaForm />} />
+              <Route path="editarPrenda/:id" element={<PrendaForm />} />
+              <Route path="tallas" element={<GestionTalla />} />
+              <Route path="nuevaTalla" element={<TallaForm />} />
+              <Route path="editarTalla/:id" element={<TallaForm />} />
+              <Route path="usuarios" element={<GestionUsuarios />} />
+              <Route path="perfil" element={<ProfileForm />} />
+              <Route path="nuevoUsuario" element={<UsuarioForm />} />
+              <Route path="editarUsuario/:id" element={<UsuarioForm />} />
+              <Route path="color" element={<GestionColor />} />
+              <Route path="nuevoColor" element={<ColorForm />} />
+              <Route path="editarColor/:id" element={<ColorForm />} />
+              <Route path="material" element={<GestionMaterial />} />
+              <Route path="nuevoMaterial" element={<MaterialForm />} />
+              <Route path="editarMaterial/:id" element={<MaterialForm />} />
+              <Route path="config" element={<GestionWhatsApp />} />
+            </Route>
+            <Route path="/cliente">
+              <Route
+                index
+                element={
+                  <Home
+                    setSearchQuery={setSearchQuery}
+                    searchQuery={searchQuery}
+                  />
+                }
+              />
+              <Route path="perfil" element={<ProfileForm />} />
+              <Route path="productos" element={<GestionProducto />} />
+              <Route
+                path="detallesProducto/:id"
+                element={<DetallesDeProducto />}
+              />
+              <Route path="carritoCompras" element={<CarritoDeCompras />} />
+            </Route>
           </Route>
         </Route>
 

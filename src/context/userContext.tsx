@@ -15,7 +15,7 @@ type AuthContextProps = {
   children: ReactNode;
 };
 
-type User = {
+export type User = {
   uid: string;
   email: string | null;
   role?: string | null;
@@ -40,20 +40,23 @@ export const UserContext = createContext<AuthContextType | undefined>(
 
 const UserProvider = ({ children }: AuthContextProps) => {
   const [user, setUser] = useState<User>(null);
-  const [cargando, setCargando] = useState(false);
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setCargando(true);
+      if (!user) {
+        setCargando(false);
+        return;
+      }
+      try {
         const { uid, email } = user;
         const userDoc = await getDoc(doc(db, `usuarios/${uid}`));
         const userData = userDoc.data();
         setUser({ uid, email, role: userData?.rol || null });
-        setCargando(false);
-      } else {
+      } catch (error) {
         setUser(null);
       }
+      setCargando(false);
     });
     return () => {
       unsubscribe();
@@ -79,6 +82,7 @@ const UserProvider = ({ children }: AuthContextProps) => {
       fotoPerfil: "",
     };
     await authenticateUser(newUser);
+    console.log(userCredential);
     return userCredential.user.uid;
   };
 

@@ -88,6 +88,8 @@ export type Producto = {
   descripcion: string;
   precio: number;
   idCategoria: string;
+  materiales: Material[];
+  tallas: string[];
   colores: Colors[];
   createdAt: Date;
   updatedAt: Date;
@@ -178,7 +180,7 @@ export const createColor = (
 export type Material = {
   id: string;
   nombre: string;
-  precioExtra: number;
+  // precioExtra: number;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -186,13 +188,13 @@ export type Material = {
 export const createMaterial = (
   id: string,
   nombre: string,
-  precioExtra: number,
+  // precioExtra: number,
   createdAt: Date,
   updatedAt: Date
 ): Material => ({
   id,
   nombre,
-  precioExtra,
+  // precioExtra,
   createdAt,
   updatedAt,
 });
@@ -245,3 +247,5 @@ export const createCarrito = (
   createdAt,
   updatedAt,
 });
+
+export type Genero = "Hombre" | "Mujer" | "Unisex";
