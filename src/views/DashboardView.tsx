@@ -1,86 +1,63 @@
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 const Dashboard = () => {
-  const { logOutUser } = useAuth();
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await logOutUser();
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="flex flex-col h-full bg-gray-100">
       <div className="flex flex-wrap justify-center p-4">
-        {/* Columna 1 */}
-        <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
+        <div className="w-full md:w-1/3 lg:w-1/4 px-4 mb-4 lg:border-r lg:border-gray-700">
           <button
             onClick={() => navigate("/admin/usuarios")}
-            className="w-full py-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg shadow-md mb-2"
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
             Gestión Usuarios
           </button>
           <button
             onClick={() => navigate("/admin/categorias")}
-            className="w-full py-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg shadow-md mb-2"
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
             Gestión Categorias
           </button>
           <button
             onClick={() => navigate("/admin/color")}
-            className="w-full py-4 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-lg shadow-md mb-2"
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
             Gestión Colores
           </button>
           <button
-            onClick={() => navigate("/admin/prendas")}
-            className="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg shadow-md"
+            onClick={() => navigate("/admin/config")}
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
-            Gestión Prendas
+            Gestión Watsapp
           </button>
         </div>
 
-        {/* Columna 2 */}
-        <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
+        <div className="w-full md:w-1/3 lg:w-1/4 px-4 mb-4">
           <button
             onClick={() => navigate("/admin/productos")}
-            className="w-full py-4 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-lg shadow-md mb-2"
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
-            Gestión de Productos
+            Gestión Prendas
           </button>
           <button
             onClick={() => navigate("/admin/tallas")}
-            className="w-full py-4 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-lg shadow-md mb-2"
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
             Gestión Tallas
           </button>
           <button
             onClick={() => navigate("/admin/material")}
-            className="w-full py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-md mb-2"
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
             Gestión Materiales
           </button>
           <button
-            onClick={() => navigate("/admin/config")}
-            className="w-full py-4 bg-gray-800 hover:bg-gray-900 text-white font-bold rounded-lg shadow-md"
+            onClick={() => navigate("/admin/estampado")}
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
           >
-            Gestión Watsapp
+            Gestión Estampado
           </button>
         </div>
-      </div>
-
-      {/* Botón de Cerrar Sesión */}
-      <div className="flex justify-center mt-auto">
-        <button
-          className="py-4 px-6 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg shadow-md mb-4"
-          onClick={handleLogout}
-        >
-          Cerrar Sesión
-        </button>
       </div>
     </div>
   );

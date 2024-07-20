@@ -2,7 +2,17 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customYellow: "#FFBD59",
+        customBlue: "#021993",
+        customRed: "#EF1305",
+      },
+      fontFamily: {
+        arima: ["Arima", "sans-serif"],
+        anto: ["Anton SC", "sans-serif"],
+      },
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };

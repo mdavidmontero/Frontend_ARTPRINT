@@ -4,10 +4,14 @@ import { Producto } from "../../types";
 import TarjetaDeProducto from "../../components/shared/TarjetaDeProducto";
 import { obtenerProductos } from "../../api/ProductosAPI";
 import useAuth from "../../hooks/useAuth";
+// import { CarrouselHome } from "./home/CarrouselHome";
 
-const Home: React.FC = () => {
+interface Props {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+const Home = ({ searchQuery }: Props) => {
   const [productos, setProductos] = useState<Producto[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -16,7 +20,6 @@ const Home: React.FC = () => {
     if (!user) {
       return;
     }
-
     switch (user.role) {
       case "ADMIN":
         navigate("/admin");
@@ -28,46 +31,9 @@ const Home: React.FC = () => {
         break;
     }
   }, [user, navigate]);
-
-  const cargarData = async () => {
-    try {
-      await cargarProductos();
-    } catch (error) {
-      console.error("Error al cargar productos:", error);
-    }
-  };
-
   useEffect(() => {
-    cargarData();
+    cargarProductos();
   }, []);
-
-  //   useEffect(() => {
-  //     const cargarDatos = async () => {
-  //       await cargarProductos();
-  //       const unsubscribe = onAuthStateChanged(async (userAuth) => {
-  //         if (userAuth) {
-  //           try {
-  //             const user = await obtenerUsuarioPorId(userAuth.uid);
-  //             if (user) {
-  //               setUser(user);
-  //             }
-  //           } catch (error) {
-  //             console.error(
-  //               "Error al obtener la información del usuario:",
-  //               error
-  //             );
-  //           }
-  //         } else {
-  //           setUser(null);
-  //         }
-  //       });
-
-  //       return () => unsubscribe();
-  //     };
-
-  //     cargarDatos();
-  //   }, []);
-
   const cargarProductos = async () => {
     try {
       const productosObtenidos = await obtenerProductos();
@@ -89,32 +55,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 p-4">
-      <div className="mt-5 p-4">
-        <div className="flex items-center bg-white rounded-full p-4 border border-purple-600 mx-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
-
-          <input
-            type="text"
-            className="flex-grow text-lg text-gray-600 focus:outline-none"
-            placeholder="Buscar productos..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </div>
+      {/* <div className="my-4">
+        <CarrouselHome productos={productos} />
+      </div> */}
       {loading ? (
         <div className="flex justify-center items-center flex-grow">
           <div className="loader"></div>

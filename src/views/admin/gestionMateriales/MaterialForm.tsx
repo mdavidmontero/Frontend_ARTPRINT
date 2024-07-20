@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const MaterialForm = () => {
   const [nombre, setNombre] = useState<string>("");
-  const [precioExtra, setPrecioExtra] = useState<string>("");
+  // const [precioExtra, setPrecioExtra] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -22,7 +22,7 @@ const MaterialForm = () => {
           const material = await obtenerMaterialPorId(id);
           if (material) {
             setNombre(material.nombre);
-            setPrecioExtra(material.precioExtra.toString());
+            // setPrecioExtra(material.precioExtra.toString());
           }
         } catch (error) {
           console.error("Error fetching material:", error);
@@ -35,7 +35,8 @@ const MaterialForm = () => {
   }, [id]);
 
   const handleSave = async () => {
-    if (!nombre.trim() || !precioExtra.trim()) {
+    // || !precioExtra.trim()
+    if (!nombre.trim()) {
       alert("Por favor complete todos los campos.");
       return;
     }
@@ -43,30 +44,27 @@ const MaterialForm = () => {
     setLoading(true);
     try {
       const now = new Date();
-      const parsedPrecioExtra = parseFloat(precioExtra);
-      if (!isNaN(parsedPrecioExtra)) {
-        if (id) {
-          await actualizarMaterial(id, {
-            nombre,
-            precioExtra: parsedPrecioExtra,
-            updatedAt: now,
-          });
-          toast.success("Material Actualizado Correctamente");
-          navigate("/admin/material");
-        } else {
-          const newMaterial = {
-            id: "",
-            nombre,
-            precioExtra: parsedPrecioExtra,
-            createdAt: now,
-            updatedAt: now,
-          };
-          await crearMaterial(newMaterial);
-          toast.success("Material Creado Correctamente");
-          navigate("/admin/material");
-        }
+      // const parsedPrecioExtra = parseFloat(precioExtra);
+
+      if (id) {
+        await actualizarMaterial(id, {
+          nombre,
+          // precioExtra: parsedPrecioExtra,
+          updatedAt: now,
+        });
+        toast.success("Material Actualizado Correctamente");
+        navigate("/admin/material");
       } else {
-        console.error("Precio extra inválido.");
+        const newMaterial = {
+          id: "",
+          nombre,
+          // precioExtra: parsedPrecioExtra,
+          createdAt: now,
+          updatedAt: now,
+        };
+        await crearMaterial(newMaterial);
+        toast.success("Material Creado Correctamente");
+        navigate("/admin/material");
       }
     } catch (error) {
       console.error("Error saving material:", error);
@@ -87,13 +85,13 @@ const MaterialForm = () => {
         value={nombre}
         onChange={(e) => setNombre(e.target.value)}
       />
-      <input
+      {/* <input
         className="border border-gray-300 rounded px-3 py-2 mb-4"
         type="number"
         placeholder="Precio Extra"
         value={precioExtra}
         onChange={(e) => setPrecioExtra(e.target.value)}
-      />
+      /> */}
       <button
         className="bg-purple-600 text-white py-2 px-4 rounded"
         onClick={handleSave}
