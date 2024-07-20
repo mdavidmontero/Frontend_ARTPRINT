@@ -1,7 +1,6 @@
 // src/controllers/CarritoController.ts
 
 import {
-  getFirestore,
   collection,
   addDoc,
   Firestore,
@@ -18,14 +17,10 @@ import {
 import { Carrito } from "../types";
 import { db } from "../config/firebase";
 import { ItemCarrito } from "../types";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../config/firebase";
-import { obtenerPrendaPorId } from "./PrendaAPI";
-import { obtenerMaterialPorId } from "./MaterialAPI";
 import { obtenerColorPorId } from "./ColoresAPI";
-import { obtenerTallaPorId } from "./TallaAPI";
 import { obtenerUsuarioPorId } from "./UsuarioAPI";
-import { toast } from "react-toastify";
 import { obtenerProductoPorId } from "./ProductosAPI";
 
 class CarritoController {
@@ -277,15 +272,6 @@ class CarritoController {
         mensaje
       )}`;
 
-      toast.success("Compra realizada con exito!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
       const opened = window.open(whatsappLink, "_blank");
 
       if (opened) {

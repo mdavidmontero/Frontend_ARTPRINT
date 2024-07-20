@@ -10,7 +10,7 @@ export default {
       },
       fontFamily: {
         arima: ["Arima", "sans-serif"],
-        anto: ["Anton SC", "sans-serif"],
+        anto: ["Anton SC"],
       },
     },
   },

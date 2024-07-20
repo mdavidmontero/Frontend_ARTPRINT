@@ -47,9 +47,11 @@ const Router = () => {
               <Home setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
             }
           />
+          <Route
+            path="/detallesProducto/:id"
+            element={<DetallesDeProducto />}
+          />
         </Route>
-
-        <Route path="/detallesProducto/:id" element={<DetallesDeProducto />} />
 
         <Route element={<RutaProtegida />}>
           <Route element={<AppLayout setSearchQuery={setSearchQuery} />}>

@@ -103,6 +103,7 @@ const DecoracionScreen = () => {
       const newHistoryIndex = historyIndex - 1;
       setHistoryIndex(newHistoryIndex);
       const canvasState = history[newHistoryIndex];
+      // @ts-ignore
       editor?.canvas.loadFromJSON(canvasState);
       editor?.canvas.renderAll();
     }
@@ -113,6 +114,8 @@ const DecoracionScreen = () => {
       const newHistoryIndex = historyIndex + 1;
       setHistoryIndex(newHistoryIndex);
       const canvasState = history[newHistoryIndex];
+      // @ts-ignore
+
       editor?.canvas.loadFromJSON(canvasState);
       editor?.canvas.renderAll();
     }
@@ -152,6 +155,8 @@ const DecoracionScreen = () => {
     const dataURL = editor?.canvas.toDataURL();
     const a = document.createElement("a");
     a.download = "image.png";
+    // @ts-ignore
+
     a.href = dataURL;
     a.click();
   };

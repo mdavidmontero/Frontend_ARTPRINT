@@ -1,18 +1,23 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Producto } from "../../../types";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { obtenerProductosLimit } from "../../../api/ProductosAPI";
+import useAuth from "../../../hooks/useAuth";
+import { useValidationUserRoutes } from "../../../utils";
 
-interface Props {
-  productos: Producto[];
-}
-
-export const CarrouselHome = ({ productos }: Props) => {
+export const CarrouselHome = () => {
+  const { user } = useAuth();
+  const { data: dataProductos } = useQuery({
+    queryKey: ["productoslimit"],
+    queryFn: () => obtenerProductosLimit(),
+  });
   const navigate = useNavigate();
+  const route = useValidationUserRoutes(user);
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
@@ -37,13 +42,17 @@ export const CarrouselHome = ({ productos }: Props) => {
 
   return (
     <Slider {...settings}>
-      {productos.map((producto) => (
+      {dataProductos?.map((producto) => (
         <div
           key={producto.id}
           className="slider-container"
-          onClick={() => navigate("/detallesProducto/" + producto.id)}
+          onClick={() => navigate(`${route}` + producto.id)}
         >
-          <h1>Hola</h1>
+          <img
+            className="w-44 h-44 object-cover rounded hover:scale-125 transition-transform hover:rotate-2 "
+            src={producto.colores[0].imagenUrl || ""}
+            alt={producto.nombre}
+          />
         </div>
       ))}
     </Slider>
