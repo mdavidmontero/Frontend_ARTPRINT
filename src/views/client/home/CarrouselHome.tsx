@@ -43,11 +43,7 @@ export const CarrouselHome = ({ productos }: Props) => {
           className="slider-container"
           onClick={() => navigate("/detallesProducto/" + producto.id)}
         >
-          <img
-            className="w-full h-60 object-cover rounded hover:scale-125 transition-transform hover:rotate-2 "
-            src={producto.colores[0]?.imagenUrl || ""}
-            alt={producto.nombre}
-          />
+          <h1>Hola</h1>
         </div>
       ))}
     </Slider>

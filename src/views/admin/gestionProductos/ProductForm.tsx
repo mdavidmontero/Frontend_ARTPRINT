@@ -21,6 +21,7 @@ const ProductoForm = () => {
     descripcion: "",
     precio: 0,
     idCategoria: "",
+    genero: "",
     materiales: [],
     tallas: [],
     colores: [],
@@ -37,7 +38,6 @@ const ProductoForm = () => {
 
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (id) {
       const fetchProduct = async () => {
@@ -81,30 +81,18 @@ const ProductoForm = () => {
     queryFn: obtenerTodasLasTallas,
   });
 
-  const handleAddColor = () => {
+  const handleGeneroClick = (gen: Genero) => {
+    setSelectedGenero(gen);
     setProducto({
       ...producto,
-      colores: [...producto.colores, { id: "", nombre: "", imagenUrl: "" }],
+      genero: gen,
     });
-  };
-  const handleGeneroClick = (size: Genero) => {
-    setSelectedGenero(size);
-    setProducto((prevProducto) => ({
-      ...prevProducto,
-      tamaño: size,
-    }));
-  };
-
-  const handleRemoveColor = (index: number) => {
-    const updatedColors = [...producto.colores];
-    updatedColors.splice(index, 1);
-    setProducto({ ...producto, colores: updatedColors });
   };
 
   const handleMaterialesChange = (selectedMaterialesId: string) => {
-    const selectedMateriales =
-      dataMateriales &&
-      dataMateriales.find((material) => material.id === selectedMaterialesId);
+    const selectedMateriales = dataMateriales?.find(
+      (material) => material.id === selectedMaterialesId
+    );
     if (
       selectedMateriales &&
       !producto.materiales.some(
@@ -117,54 +105,17 @@ const ProductoForm = () => {
       });
     }
   };
-  const handleTallasInferiorChange = () => {
-    if (tallaInput && !tallasInferior.includes(tallaInput)) {
-      const nuevasTallas = [...tallasInferior, tallaInput];
-      setTallaInferior(nuevasTallas);
-      setProducto({
-        ...producto,
-        tallas: nuevasTallas,
-      });
-      setTallaInput(""); // Clear the input field after adding the talla
-    } else {
-      toast.error("Ya agregaste esa talla o el campo está vacío");
-    }
-  };
-
-  const handleEliminarTalla = (talla: string) => {
-    const nuevasTallas = tallasInferior.filter((t) => t !== talla);
-    setTallaInferior(nuevasTallas);
-    setProducto({
-      ...producto,
-      tallas: nuevasTallas,
-    });
-  };
   const handleRemoveMaterial = (index: number) => {
     const updatedMateriales = [...producto.materiales];
     updatedMateriales.splice(index, 1);
     setProducto({ ...producto, materiales: updatedMateriales });
   };
-
-  const handleTallasChange = (selectedTallaNombre: any) => {
-    const isAlreadySelected = producto.tallas.includes(selectedTallaNombre);
-
-    if (isAlreadySelected) {
-      setProducto({
-        ...producto,
-        tallas: producto.tallas.filter(
-          (talla) => talla !== selectedTallaNombre
-        ),
-      });
-    } else {
-      setProducto({
-        ...producto,
-        tallas: [...producto.tallas, selectedTallaNombre],
-      });
-    }
+  const handleAddColor = () => {
+    setProducto({
+      ...producto,
+      colores: [...producto.colores, { id: "", nombre: "", imagenUrl: "" }],
+    });
   };
-
-  console.log(producto);
-
   const handleColorChange = (
     index: number,
     selectedColorId: string,
@@ -179,6 +130,11 @@ const ProductoForm = () => {
     setProducto({ ...producto, colores: updatedColors });
   };
 
+  const handleRemoveColor = (index: number) => {
+    const updatedColors = [...producto.colores];
+    updatedColors.splice(index, 1);
+    setProducto({ ...producto, colores: updatedColors });
+  };
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -198,6 +154,47 @@ const ProductoForm = () => {
     }
   };
 
+  const handleTallasChange = (selectedTallaNombre: string) => {
+    const isAlreadySelected = producto.tallas.includes(selectedTallaNombre);
+    const busqueda = producto.tallas.filter(
+      (talla) => talla !== selectedTallaNombre
+    );
+    if (isAlreadySelected) {
+      setProducto({
+        ...producto,
+        tallas: busqueda,
+      });
+    } else {
+      setProducto({
+        ...producto,
+        tallas: [...producto.tallas, selectedTallaNombre],
+      });
+    }
+  };
+
+  const handleTallasInferiorChange = () => {
+    if (tallasInferior.includes(tallaInput)) {
+      const nuevasTallas = [...tallasInferior, tallaInput];
+      setTallaInferior(nuevasTallas);
+      setProducto({
+        ...producto,
+        tallas: tallasInferior,
+      });
+      setTallaInput("");
+    } else {
+      toast.error("Ya agregaste esa talla o el campo está vacío");
+    }
+  };
+
+  const handleEliminarTalla = (talla: string) => {
+    const nuevasTallas = tallasInferior.filter((t) => t !== talla);
+    setTallaInferior(nuevasTallas);
+    setProducto({
+      ...producto,
+      tallas: nuevasTallas,
+    });
+  };
+
   const handleSave = async () => {
     try {
       if (
@@ -205,6 +202,10 @@ const ProductoForm = () => {
         !producto.descripcion.trim() ||
         !producto.precio ||
         !producto.idCategoria ||
+        !producto.genero ||
+        !producto.materiales.length ||
+        !producto.tallas.length ||
+        !producto.colores.length ||
         producto.colores.some(
           (color) => !color.id.trim() || !color.imagenUrl.trim()
         )
@@ -230,6 +231,7 @@ const ProductoForm = () => {
           descripcion: "",
           precio: 0,
           idCategoria: "",
+          genero: "",
           materiales: [],
           tallas: [],
           colores: [],
@@ -320,12 +322,11 @@ const ProductoForm = () => {
             onChange={(e) => handleMaterialesChange(e.target.value)}
           >
             <option value="">Selecciona los Materiales</option>
-            {dataMateriales &&
-              dataMateriales.map((col) => (
-                <option key={col.id} value={col.id}>
-                  {col.nombre}
-                </option>
-              ))}
+            {dataMateriales?.map((col) => (
+              <option key={col.id} value={col.id}>
+                {col.nombre}
+              </option>
+            ))}
           </select>
         </div>
 

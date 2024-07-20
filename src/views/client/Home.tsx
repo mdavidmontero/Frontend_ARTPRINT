@@ -4,7 +4,7 @@ import { Producto } from "../../types";
 import TarjetaDeProducto from "../../components/shared/TarjetaDeProducto";
 import { obtenerProductos } from "../../api/ProductosAPI";
 import useAuth from "../../hooks/useAuth";
-import { CarrouselHome } from "./home/CarrouselHome";
+// import { CarrouselHome } from "./home/CarrouselHome";
 
 interface Props {
   searchQuery: string;
@@ -20,7 +20,6 @@ const Home = ({ searchQuery }: Props) => {
     if (!user) {
       return;
     }
-
     switch (user.role) {
       case "ADMIN":
         navigate("/admin");
@@ -32,19 +31,9 @@ const Home = ({ searchQuery }: Props) => {
         break;
     }
   }, [user, navigate]);
-
-  const cargarData = async () => {
-    try {
-      await cargarProductos();
-    } catch (error) {
-      console.error("Error al cargar productos:", error);
-    }
-  };
-
   useEffect(() => {
-    cargarData();
+    cargarProductos();
   }, []);
-
   const cargarProductos = async () => {
     try {
       const productosObtenidos = await obtenerProductos();
@@ -66,9 +55,9 @@ const Home = ({ searchQuery }: Props) => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 p-4">
-      <div className="my-4">
+      {/* <div className="my-4">
         <CarrouselHome productos={productos} />
-      </div>
+      </div> */}
       {loading ? (
         <div className="flex justify-center items-center flex-grow">
           <div className="loader"></div>

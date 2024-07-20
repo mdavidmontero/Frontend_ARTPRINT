@@ -28,6 +28,8 @@ import RutaProtegida from "./layouts/RutaProtegida";
 import { useState } from "react";
 import HomeLayout from "./layouts/HomeLayout";
 import ProfileForm from "./views/admin/gestionUsuarios/ProfileForm";
+import EstampadoForm from "./views/admin/gestionEstampados/EstampadoForm";
+import GestionEstampado from "./views/admin/gestionEstampados/GestionEstampado";
 
 const Router = () => {
   const { user } = useAuth();
@@ -75,6 +77,9 @@ const Router = () => {
               <Route path="material" element={<GestionMaterial />} />
               <Route path="nuevoMaterial" element={<MaterialForm />} />
               <Route path="editarMaterial/:id" element={<MaterialForm />} />
+              <Route path="estampado" element={<GestionEstampado />} />
+              <Route path="nuevoEstampado" element={<EstampadoForm />} />
+              <Route path="editarEstampado/:id" element={<EstampadoForm />} />
               <Route path="config" element={<GestionWhatsApp />} />
             </Route>
             <Route path="/cliente">

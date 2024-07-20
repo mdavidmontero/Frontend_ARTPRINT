@@ -51,6 +51,12 @@ const Dashboard = () => {
           >
             Gestión Materiales
           </button>
+          <button
+            onClick={() => navigate("/admin/estampado")}
+            className="flex items-center bg-blue-600 hover:bg-blue-800 w-full py-4  text-white font-bold rounded-lg shadow-md mb-2 gap-2 justify-center cursor-pointer"
+          >
+            Gestión Estampado
+          </button>
         </div>
       </div>
     </div>

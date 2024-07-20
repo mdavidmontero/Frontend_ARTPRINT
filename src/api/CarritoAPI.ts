@@ -26,6 +26,7 @@ import { obtenerColorPorId } from "./ColoresAPI";
 import { obtenerTallaPorId } from "./TallaAPI";
 import { obtenerUsuarioPorId } from "./UsuarioAPI";
 import { toast } from "react-toastify";
+import { obtenerProductoPorId } from "./ProductosAPI";
 
 class CarritoController {
   private db: Firestore;
@@ -232,23 +233,32 @@ class CarritoController {
       mensaje += `\n------ Productos ------\n`;
 
       for (const item of carritoData.items) {
-        const prenda = await obtenerPrendaPorId(item.idPrenda);
-        const material = await obtenerMaterialPorId(item.idMaterial);
+        // const prenda = await obtenerPrendaPorId(item.idPrenda);
+        const prenda = await obtenerProductoPorId(item.productoId);
+        // const material = await obtenerMaterialPorId(item.idMaterial);
         const color = await obtenerColorPorId(item.idColor);
-        const talla = await obtenerTallaPorId(item.talla);
+        // const talla = await obtenerTallaPorId(item.talla);
 
+        // Sacar propiedades del producto
         const prendaNombre = prenda ? prenda.nombre : "Desconocido";
-        const materialNombre = material ? material.nombre : "Desconocido";
         const colorNombre = color ? color.nombre : "Desconocido";
-        const tallaNombre = talla ? talla.nombre : "Desconocido";
+        const tallaNombre = item ? item.talla : "Desconocido";
+        const genero = prenda ? prenda.genero : "Desconocido";
+        const materialNombre = prenda
+          ? prenda.materiales.map((material) =>
+              material.nombre.split(", ").join("/")
+            )
+          : "Desconocido";
 
         mensaje += `\n-- Producto --\n`;
         mensaje += `${item.nombre}: ${item.cantidad} x $${item.precio}\n`;
-        mensaje += `Prenda: ${prendaNombre}, Material: ${materialNombre}, Color: ${colorNombre}, Talla: ${tallaNombre}, Género: ${item.genero}\n`;
+        mensaje += `Prenda: ${prendaNombre}, Material: ${materialNombre}, Color: ${colorNombre}, Talla: ${tallaNombre}, Género: ${genero}\n`;
         total += item.cantidad * item.precio;
         // Imagen prenda
         mensaje += `\n\n------ Imagen ------`;
         mensaje += `\n${await this.getImageUrl(item.imagen)}`;
+        mensaje += `\n\n------ Imagen Estampado------`;
+        mensaje += `\n${item.estampado}`;
       }
 
       const usuario = await obtenerUsuarioPorId(carritoData.usuarioId);

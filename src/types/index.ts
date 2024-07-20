@@ -88,6 +88,7 @@ export type Producto = {
   descripcion: string;
   precio: number;
   idCategoria: string;
+  genero: string;
   materiales: Material[];
   tallas: string[];
   colores: Colors[];
@@ -219,10 +220,11 @@ export type ItemCarrito = {
   productoId: string;
   imagen: string;
   nombre: string;
-  idMaterial: string;
+  // idMaterial: string;
   idColor: string;
   talla: string;
-  genero: string;
+  estampado: string;
+  // genero: string;
   cantidad: number;
   precio: number;
 };
@@ -247,5 +249,13 @@ export const createCarrito = (
   createdAt,
   updatedAt,
 });
+export type Estampado = {
+  id: string;
+  nombre: string;
+  precio: number;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export type Genero = "Hombre" | "Mujer" | "Unisex";
