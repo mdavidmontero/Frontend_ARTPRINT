@@ -30,7 +30,7 @@ const ProductoForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [coloresDisponibles, setColoresDisponibles] = useState<Colors[]>([]);
-  const [selectedGenero, setSelectedGenero] = useState<Genero | null>();
+  const [selectedGenero, setSelectedGenero] = useState("");
   const [tallaPantalon, setTallaPantalon] = useState("superior");
   const [tallasInferior, setTallaInferior] = useState<string[]>([]);
   const [tallaInput, setTallaInput] = useState("");
@@ -80,6 +80,11 @@ const ProductoForm = () => {
     queryKey: ["tallas"],
     queryFn: obtenerTodasLasTallas,
   });
+  useEffect(() => {
+    if (producto.genero) {
+      setSelectedGenero(producto.genero);
+    }
+  }, [producto.genero]);
 
   const handleGeneroClick = (gen: Genero) => {
     setSelectedGenero(gen);
@@ -173,12 +178,13 @@ const ProductoForm = () => {
   };
 
   const handleTallasInferiorChange = () => {
-    if (tallasInferior.includes(tallaInput)) {
+    if (!tallasInferior.includes(tallaInput)) {
       const nuevasTallas = [...tallasInferior, tallaInput];
       setTallaInferior(nuevasTallas);
+
       setProducto({
         ...producto,
-        tallas: tallasInferior,
+        tallas: nuevasTallas,
       });
       setTallaInput("");
     } else {
@@ -187,7 +193,7 @@ const ProductoForm = () => {
   };
 
   const handleEliminarTalla = (talla: string) => {
-    const nuevasTallas = tallasInferior.filter((t) => t !== talla);
+    const nuevasTallas = producto.tallas.filter((t) => t !== talla);
     setTallaInferior(nuevasTallas);
     setProducto({
       ...producto,
@@ -251,7 +257,7 @@ const ProductoForm = () => {
     <>
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">
-          {id ? "Editar Producto" : "Agregar Producto"}
+          {id ? "Editar Prenda" : "Agregar Prenda"}
         </h1>
         <input
           className="border border-gray-300 rounded px-3 py-2 mb-4 w-full"
@@ -416,10 +422,10 @@ const ProductoForm = () => {
             <div className="mt-4">
               <h3 className="text-lg font-bold py-2">Tallas Agregadas:</h3>
               <div>
-                {tallasInferior.map((talla, index) => (
+                {producto.tallas.map((talla) => (
                   <div
                     className="flex items-center lg:w-60 justify-between w-full gap-4 mb-2 p-2 border border-gray-300 rounded"
-                    key={index}
+                    key={producto.tallas.indexOf(talla)}
                   >
                     <span>{talla}</span>
 

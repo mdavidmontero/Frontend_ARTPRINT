@@ -19,9 +19,9 @@ interface Props {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 export default function AppLayout({ setSearchQuery }: Props) {
-  const params = useLocation();
   const navigate = useNavigate();
   const { user, cargando, logOutUser } = useAuth();
+  const location = useLocation();
 
   if (cargando) return "Cargando";
 
@@ -43,8 +43,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
       <>
         {user ? (
           <>
-            <div className="bg-customYellow h-6"></div>
-
+            <div className="bg-customYellow h-5"></div>
             <header className="bg-white py-1">
               <div className="max-w-screen-2xl mx-auto px-4">
                 <div className="flex flex-col lg:flex-row justify-between items-center">
@@ -53,7 +52,6 @@ export default function AppLayout({ setSearchQuery }: Props) {
                       <Logo />
                     </Link>
                   </div>
-                  {/* Linea grande de separacion */}
 
                   <div className="flex flex-col lg:flex-row  items-center space-y-4 lg:space-y-0 lg:space-x-6">
                     <div className="items-center space-x-2 font-anto">
@@ -112,19 +110,14 @@ export default function AppLayout({ setSearchQuery }: Props) {
                 </div>
               </div>
             </header>
+            {location.pathname !== "/cliente" && (
+              <div className={"bg-customBlue h-10 flex justify-evenly"}></div>
+            )}
 
-            <div
-              className={`${
-                params.pathname === "/admin/productos"
-                  ? "bg-customBlue h-10"
-                  : "bg-customYellow h-10"
-              }`}
-            ></div>
-
-            <section className="max-w-screen-2xl mx-auto mt-10 ">
+            <section className="max-w-screen-2xl mx-auto ">
               <Outlet />
             </section>
-            <div className="bg-customYellow h-10"></div>
+            <div className="bg-customYellow h-6"></div>
 
             <footer className="py-5">
               <p className="text-center">

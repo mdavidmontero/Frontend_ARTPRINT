@@ -92,9 +92,9 @@ const PrendaForm = () => {
     }
   };
 
-  const handleCategoriaSelect = (id: string) => {
-    setIdCategoria(id);
-  };
+  // const handleCategoriaSelect = (id: string) => {
+  //   setIdCategoria(id);
+  // };
 
   return (
     <div className="flex flex-col items-center mt-8">

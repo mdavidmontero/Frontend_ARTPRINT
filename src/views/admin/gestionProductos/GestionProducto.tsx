@@ -6,7 +6,7 @@ import DeleteConfirm from "../../../components/Modals/ModalConfirm";
 
 const GestionProducto: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
+  // const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const { productos, loading, error, fetchProductos, deleteProducto } =
@@ -26,7 +26,7 @@ const GestionProducto: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      setShowModal(true);
+      // setShowModal(true);
       await deleteProducto(id);
     } catch (error) {
       console.error("Error deleting product:", error);

@@ -23,6 +23,10 @@ interface ProductState {
   deleteProducto: (productId: string) => Promise<void>;
 }
 
+const isError = (error: unknown): error is Error => {
+  return (error as Error).message !== undefined;
+};
+
 export const useProductStore = create<ProductState>((set) => ({
   productos: [],
   loading: false,
@@ -34,7 +38,11 @@ export const useProductStore = create<ProductState>((set) => ({
       const productos = await obtenerProductosAPI();
       set({ productos: productos || [], loading: false });
     } catch (error) {
-      set({ error: error.message, loading: false });
+      if (isError(error)) {
+        set({ error: error.message, loading: false });
+      } else {
+        set({ error: "Unknown error", loading: false });
+      }
     }
   },
 
@@ -45,7 +53,11 @@ export const useProductStore = create<ProductState>((set) => ({
       const productos = await obtenerProductosAPI();
       set({ productos: productos || [], loading: false });
     } catch (error) {
-      set({ error: error.message, loading: false });
+      if (isError(error)) {
+        set({ error: error.message, loading: false });
+      } else {
+        set({ error: "Unknown error", loading: false });
+      }
     }
   },
 
@@ -56,7 +68,11 @@ export const useProductStore = create<ProductState>((set) => ({
       set({ loading: false });
       return producto;
     } catch (error) {
-      set({ error: error.message, loading: false });
+      if (isError(error)) {
+        set({ error: error.message, loading: false });
+      } else {
+        set({ error: "Unknown error", loading: false });
+      }
       return null;
     }
   },
@@ -68,7 +84,11 @@ export const useProductStore = create<ProductState>((set) => ({
       const productos = await obtenerProductosAPI();
       set({ productos: productos || [], loading: false });
     } catch (error) {
-      set({ error: error.message, loading: false });
+      if (isError(error)) {
+        set({ error: error.message, loading: false });
+      } else {
+        set({ error: "Unknown error", loading: false });
+      }
     }
   },
 
@@ -79,7 +99,11 @@ export const useProductStore = create<ProductState>((set) => ({
       const productos = await obtenerProductosAPI();
       set({ productos: productos || [], loading: false });
     } catch (error) {
-      set({ error: error.message, loading: false });
+      if (isError(error)) {
+        set({ error: error.message, loading: false });
+      } else {
+        set({ error: "Unknown error", loading: false });
+      }
     }
   },
 }));

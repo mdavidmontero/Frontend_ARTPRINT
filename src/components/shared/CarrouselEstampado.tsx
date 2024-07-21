@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Estampado } from "../../types";
 
@@ -11,7 +11,10 @@ const CarruselEstampados = ({
   estampados,
   onSelect,
 }: CarruselEstampadosProps) => {
-  const [estampadosDispo, setEstampadoDis] = useState<Estampado[]>(estampados);
+  const [estampadosDispo, setEstampadoDis] = useState<Estampado[]>();
+  useEffect(() => {
+    setEstampadoDis(estampados);
+  }, []);
   const [selectedEstampado, setSelectedEstampado] = useState<Estampado | null>(
     null
   );

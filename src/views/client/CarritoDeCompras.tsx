@@ -140,9 +140,6 @@ const CarritoDeCompras = () => {
 
       const vendedorWhatsapp = vendedorWhatsApp;
 
-      // Simulación de Alerta para propósitos educativos, reemplazar con tu propia lógica
-
-      // Aquí deberías implementar la lógica para abrir WhatsApp en el navegador
       setTimeout(() => {
         toast.success(
           "Compra realizada. Se abrirá WhatsApp para que puedas contactar al vendedor."
@@ -175,34 +172,41 @@ const CarritoDeCompras = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-4">
-      <div className="p-4 bg-gray-100">
-        <div className="flex justify-between items-center m-4">
-          <h1 className="text-2xl font-bold text-gray-700">Carrito</h1>
-        </div>
-      </div>
-      <div className="flex-1">
-        <div className="overflow-y-auto bg-white">
-          <div className="p-4">
-            {carrito.map((compra, index) => (
-              <TarjetaDeProductoEnCarrito
-                key={index}
-                imagen={compra.imagen}
-                titulo={compra.nombre}
-                precio={compra.precio.toString()}
-                cantidad={compra.cantidad}
-                onEliminar={() => eliminarProducto(compra.productoId)}
-                onIncrementar={() =>
-                  actualizarCantidad(compra.productoId, compra.cantidad + 1)
-                }
-                onDecrementar={() =>
-                  actualizarCantidad(compra.productoId, compra.cantidad - 1)
-                }
-              />
-            ))}
-          </div>
-        </div>
-        <div className="p-4 bg-gray-100 border-t border-gray-300 flex justify-between items-center">
+    <aside
+      className={`${
+        carrito.length === 0 ? "mb-20" : "mb-5"
+      }  lg:w-2/3 mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-white rounded-lg shadow-md`}
+    >
+      <p className="text-3xl text-center lg:text-start font-bold text-gray-900 mb-6">
+        Resumen del Pedido
+      </p>
+      <ul role="list" className="divide-y divide-gray-200">
+        {carrito.length === 0 ? (
+          <p className="text-center text-gray-600">
+            No hay productos en el carrito.
+          </p>
+        ) : (
+          carrito.map((compra, index) => (
+            <TarjetaDeProductoEnCarrito
+              key={index}
+              imagen={compra.imagen}
+              titulo={compra.nombre}
+              precio={compra.precio.toString()}
+              cantidad={compra.cantidad}
+              onEliminar={() => eliminarProducto(compra.productoId)}
+              onIncrementar={() =>
+                actualizarCantidad(compra.productoId, compra.cantidad + 1)
+              }
+              onDecrementar={() =>
+                actualizarCantidad(compra.productoId, compra.cantidad - 1)
+              }
+            />
+          ))
+        )}
+      </ul>
+
+      {carrito.length > 0 && (
+        <div className="mt-6 p-4 bg-gray-100 border-t border-gray-300 flex justify-between items-center rounded-b-lg">
           <h2 className="text-xl font-bold text-gray-800">
             Total: {formatCurrency(+totalCarrito)}
           </h2>
@@ -213,8 +217,8 @@ const CarritoDeCompras = () => {
             Comprar
           </button>
         </div>
-      </div>
-    </div>
+      )}
+    </aside>
   );
 };
 

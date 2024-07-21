@@ -47,7 +47,7 @@ export async function actualizarColor(
   newData: Partial<Color>
 ): Promise<void> {
   try {
-    const colorDoc = doc(coloresRef, "colores", colorId);
+    const colorDoc = doc(db, "colores", colorId);
     await updateDoc(colorDoc, newData);
   } catch (error) {
     console.error("Error al actualizar color:", error);
@@ -57,7 +57,7 @@ export async function actualizarColor(
 
 export async function eliminarColor(colorId: string): Promise<void> {
   try {
-    const colorDoc = doc(coloresRef, "colores", colorId);
+    const colorDoc = doc(db, "colores", colorId);
     await deleteDoc(colorDoc);
   } catch (error) {
     console.error("Error al eliminar color:", error);

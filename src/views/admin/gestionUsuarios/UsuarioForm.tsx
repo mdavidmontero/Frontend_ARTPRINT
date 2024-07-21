@@ -174,10 +174,13 @@ const UsuarioForm = () => {
       />
       {errors.cedula && <p className="text-red-500">{errors.cedula}</p>}
       <input
-        className={`border border-gray-300 rounded px-3 py-2 mb-4 ${
+        className={`${
+          id !== undefined ? "disabled:bg-gray-300" : ""
+        }  border border-gray-300 rounded px-3 py-2 mb-4 ${
           errors.correo && "border-red-500"
         }`}
         placeholder="Correo"
+        disabled={id === undefined ? false : true}
         value={correo}
         onChange={(e) => setCorreo(e.target.value)}
       />

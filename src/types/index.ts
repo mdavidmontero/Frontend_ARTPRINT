@@ -159,7 +159,6 @@ export const createTalla = (
 export type Color = {
   id: string;
   nombre: string;
-  codigo?: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -167,13 +166,11 @@ export type Color = {
 export const createColor = (
   id: string,
   nombre: string,
-  codigo: string | undefined,
   createdAt: Date,
   updatedAt: Date
 ): Color => ({
   id,
   nombre,
-  codigo,
   createdAt,
   updatedAt,
 });

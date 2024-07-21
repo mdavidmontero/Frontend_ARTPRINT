@@ -47,7 +47,7 @@ export async function actualizarMaterial(
   newData: Partial<Material>
 ): Promise<void> {
   try {
-    const materialDoc = doc(materialesRef, "materiales", materialId);
+    const materialDoc = doc(db, "materiales", materialId);
     await updateDoc(materialDoc, newData);
   } catch (error) {
     console.error("Error al actualizar material:", error);

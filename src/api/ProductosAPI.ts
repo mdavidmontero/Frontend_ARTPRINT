@@ -10,6 +10,7 @@ import {
   getDocs,
   arrayUnion,
   arrayRemove,
+  limit,
 } from "firebase/firestore";
 import { Producto, Color } from "../types";
 import { db } from "../config/firebase";
@@ -70,6 +71,27 @@ export const eliminarProducto = async (productId: string): Promise<void> => {
 export const obtenerProductos = async (): Promise<Producto[] | null> => {
   try {
     const q = query(productosRef, orderBy("precio"));
+    const querySnapshot = await getDocs(q);
+    const productos: Producto[] = querySnapshot.docs.map(
+      (doc) => doc.data() as Producto
+    );
+    return productos;
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    return null;
+  }
+};
+export const obtenerProductosLimit = async (
+  limitNumber: number = 10,
+  orderField: string = "updatedAt",
+  orderDirection: "asc" | "desc" = "desc"
+): Promise<Producto[] | null> => {
+  try {
+    const q = query(
+      productosRef,
+      orderBy(orderField, orderDirection),
+      limit(limitNumber)
+    );
     const querySnapshot = await getDocs(q);
     const productos: Producto[] = querySnapshot.docs.map(
       (doc) => doc.data() as Producto

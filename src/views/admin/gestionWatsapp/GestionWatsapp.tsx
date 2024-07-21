@@ -5,6 +5,8 @@ import {
   guardarNumeroWhatsApp,
   obtenerNumeroWhatsApp,
 } from "../../../api/WhatsAppAPI";
+import Spinner from "../../../components/spinner/Spinner";
+import { toast } from "react-toastify";
 
 export const GestionWhatsApp: React.FC = () => {
   const [numeroWhatsApp, setNumeroWhatsApp] = useState("");
@@ -51,7 +53,7 @@ export const GestionWhatsApp: React.FC = () => {
           phoneNumber: numeroWhatsApp,
           countryCode,
         });
-        window.alert("Número de WhatsApp actualizado correctamente.");
+        toast.success("Número de WhatsApp actualizado correctamente.");
       } else {
         await guardarNumeroWhatsApp(numeroWhatsApp, countryCode);
         const newWhatsAppData = await obtenerNumeroWhatsApp();
@@ -60,7 +62,7 @@ export const GestionWhatsApp: React.FC = () => {
           setWhatsAppData(newWhatsAppData);
           setNumeroWhatsApp(newWhatsAppData.phoneNumber);
           setCountryCode(newWhatsAppData.countryCode);
-          window.alert("Número de WhatsApp agregado correctamente.");
+          toast.success("Número de WhatsApp agregado correctamente.");
         }
       }
     } catch (error) {
@@ -84,62 +86,47 @@ export const GestionWhatsApp: React.FC = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="mb-4">
-          <svg
-            className="animate-spin h-10 w-10 text-purple-800"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V2.5a.5.5 0 00-1 0V4a8 8 0 01-8 8z"
-            ></path>
-          </svg>
-        </div>
-        <p className="text-lg font-semibold">Cargando...</p>
-      </div>
-    );
+    return <Spinner />;
   }
 
   return (
-    <div className="p-8 bg-white">
-      <h2 className="text-2xl font-bold mb-4">Número de WhatsApp:</h2>
-      <input
-        type="text"
-        className="border border-gray-300 rounded px-3 py-2 mb-4"
-        placeholder="Ingrese el número de WhatsApp"
-        value={numeroWhatsApp}
-        onChange={(e) => setNumeroWhatsApp(e.target.value)}
-      />
-      <h2 className="text-2xl font-bold mb-4">Código de País:</h2>
-      <button
-        className={`border border-gray-300 rounded px-3 py-2 mb-4 ${
-          !countryCode && "border-red-500"
-        }`}
-        onClick={() => setModalVisible(true)}
-      >
-        {countryCode
-          ? countries.find((c) => c.value === countryCode)?.label
-          : "Seleccionar país"}
-      </button>
-      <button
-        className="bg-purple-600 text-white font-bold py-2 px-4 rounded mb-4"
-        onClick={handleGuardarNumero}
-      >
-        Guardar
-      </button>
+    <div className="mx-auto max-w-3xl">
+      <h1 className="text-3xl font-black">WhatsApp</h1>
+      <p className="text-1xl font-light text-gray-500 mt-5 capitalize">
+        Aquí puedes Agregar el número donde recibiras los Pedidos
+      </p>
+      <div className="mt-8 space-y-5 bg-white shadow-lg p-10 rounded-lg">
+        <div className="mb-5 space-y-3">
+          <label className="text-sm uppercase font-bold" htmlFor="numero">
+            Número WhatsApp
+          </label>
+          <input
+            type="text"
+            id="numero"
+            className="w-full p-3 border border-gray-200"
+            placeholder="Ingrese el número de WhatsApp"
+            value={numeroWhatsApp}
+            onChange={(e) => setNumeroWhatsApp(e.target.value)}
+          />
+        </div>
+        <h2 className="text-lg font-bold mb-4 ">Código de País:</h2>
+        <button
+          className={`border border-gray-300 rounded px-3 py-2 mb-4 ${
+            !countryCode && "border-red-500"
+          }`}
+          onClick={() => setModalVisible(true)}
+        >
+          {countryCode
+            ? countries.find((c) => c.value === countryCode)?.label
+            : "Seleccionar país"}
+        </button>
+        <button
+          className="bg-purple-600 text-white font-bold py-2 px-4 rounded mb-4"
+          onClick={handleGuardarNumero}
+        >
+          Guardar
+        </button>
+      </div>
 
       {modalVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
