@@ -18,7 +18,7 @@ export const CarrouselHome = () => {
   const settings = {
     dots: true,
     infinite: false,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
     speed: 2000,
