@@ -202,7 +202,7 @@ export const DetallesDeProducto = () => {
         // idMaterial: selectedMaterial,
         idColor: selectedColor,
         talla: selectedTalla,
-        estampado: selectedEstampado,
+        estampado: selectedEstampado ? selectedEstampado : "",
         // genero: selectedGenero,
         cantidad: cantidad,
         precio: producto!.precio,

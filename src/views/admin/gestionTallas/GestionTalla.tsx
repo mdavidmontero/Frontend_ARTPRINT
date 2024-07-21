@@ -48,56 +48,64 @@ const GestionTalla = () => {
     <>
       <div className="container mx-auto p-4">
         {loading ? (
-          <Spinner />
+          <div className="flex justify-center">
+            <Spinner />
+          </div>
         ) : (
           <>
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl font-bold">Tallas</h1>
               <button
-                className="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700"
+                className="bg-purple-600 text-white px-9 py-2 rounded-full font-bold"
                 onClick={() => navigate("/admin/nuevaTalla")}
               >
                 Añadir Talla
               </button>
             </div>
             <input
-              className="h-10 border border-gray-300 rounded px-2 w-full mb-4"
+              className="bg-gray-300 border border-gray-300 rounded p-2 mb-4 w-2/5 placeholder:text-gray-600 placeholder:font-semibold"
               placeholder="Buscar"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <div className="grid grid-cols-2 gap-4 mb-2">
-              <span className="font-bold text-center">Nombre</span>
-              <span className="font-bold text-center">Acciones</span>
+            <div className="mt-4 p-6 bg-white shadow w-full">
+              <div className="grid grid-cols-2  mb-2 font-semibold bg-customYellow text-black w-full rounded-md">
+                <span className="p-2 font-arima font-bold text-center">
+                  Nombre
+                </span>
+                <span className="p-2 font-arima font-bold text-center">
+                  Acciones
+                </span>
+              </div>
+              <ul>
+                {filteredTallas.map((talla) => (
+                  <li
+                    key={talla.id}
+                    className="grid grid-cols-2 items-center border-b border-b-slate-400  py-2"
+                  >
+                    <span className="text-center">{talla.nombre}</span>
+                    <div className="flex space-x-2 justify-center">
+                      <button
+                        className="bg-customBlue text-white rounded-lg w-32 p-2 uppercase font-bold text-sm text-center"
+                        onClick={() => handleEdit(talla.id)}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="bg-customRed text-white rounded-lg w-32 p-2 uppercase font-bold text-center"
+                        onClick={() =>
+                          navigate(
+                            location.pathname + `?handleDelete=${talla.id}`
+                          )
+                        }
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul>
-              {filteredTallas.map((talla) => (
-                <li
-                  key={talla.id}
-                  className="grid grid-cols-2 gap-4 items-center bg-white p-3 mb-2 rounded shadow-sm"
-                >
-                  <span className="text-center">{talla.nombre}</span>
-                  <div className="flex justify-center space-x-2">
-                    <button
-                      className="bg-purple-600 text-white py-1 px-2 rounded hover:bg-purple-700"
-                      onClick={() => handleEdit(talla.id)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className="bg-red-600 text-white py-1 px-2 rounded hover:bg-red-700"
-                      onClick={() =>
-                        navigate(
-                          location.pathname + `?handleDelete=${talla.id}`
-                        )
-                      }
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
           </>
         )}
       </div>
