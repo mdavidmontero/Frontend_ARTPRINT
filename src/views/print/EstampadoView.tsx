@@ -49,30 +49,30 @@ const DecoracionScreen = () => {
     });
   };
 
-  const addRectangle = () => {
-    const rect = new fabric.Rect({
-      left: 100,
-      top: 100,
-      fill: selectedColor,
-      width: 150,
-      height: 100,
-      selectable: true,
-    });
-    editor?.canvas.add(rect);
-    saveCanvasState();
-  };
+  // const addRectangle = () => {
+  //   const rect = new fabric.Rect({
+  //     left: 100,
+  //     top: 100,
+  //     fill: selectedColor,
+  //     width: 150,
+  //     height: 100,
+  //     selectable: true,
+  //   });
+  //   editor?.canvas.add(rect);
+  //   saveCanvasState();
+  // };
 
-  const addCircle = () => {
-    const circle = new fabric.Circle({
-      left: 200,
-      top: 200,
-      radius: 50,
-      fill: selectedColor,
-      selectable: true,
-    });
-    editor?.canvas.add(circle);
-    saveCanvasState();
-  };
+  // const addCircle = () => {
+  //   const circle = new fabric.Circle({
+  //     left: 200,
+  //     top: 200,
+  //     radius: 50,
+  //     fill: selectedColor,
+  //     selectable: true,
+  //   });
+  //   editor?.canvas.add(circle);
+  //   saveCanvasState();
+  // };
 
   const handleLayerUp = () => {
     const activeObject = editor?.canvas.getActiveObject();

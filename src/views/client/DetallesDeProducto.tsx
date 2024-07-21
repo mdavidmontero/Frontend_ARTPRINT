@@ -45,7 +45,7 @@ export const DetallesDeProducto = () => {
   const [selectedEstampado, setSelectedEstampado] = useState<string>("");
 
   const [cantidad, setCantidad] = useState<number>(1);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  // const [imageUrl, setImageUrl] = useState<string>("");
   const [loadingUpload, setLoadingUpload] = useState(true);
   const [addToCartDisabled, setAddToCartDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -142,7 +142,7 @@ export const DetallesDeProducto = () => {
       const file = e.target.files?.[0];
       if (file) {
         const imageUrl = await useImageUpload(file);
-        setImageUrl(imageUrl);
+        // setImageUrl(imageUrl);
         setOcultarDecoracion(!ocultarDecoracion);
         setSelectedEstampado(imageUrl);
       }
