@@ -3,9 +3,11 @@ import { Link, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoIosLogIn } from "react-icons/io";
+
 interface Props {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
+
 export default function HomeLayout({ setSearchQuery }: Props) {
   return (
     <>
@@ -18,19 +20,19 @@ export default function HomeLayout({ setSearchQuery }: Props) {
                 <Logo />
               </Link>
             </div>
-            <div className="flex flex-col lg:flex-row  items-center space-y-4 lg:space-y-0 lg:space-x-6">
-              <div className="items-center space-x-2 font-anto">
+            <div className="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
+              <div className="flex items-center space-x-2 font-anto">
                 <input
                   type="text"
-                  placeholder="¿Que deseas Buscar?"
+                  placeholder="¿Qué deseas Buscar?"
                   className="rounded"
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               <Link to={"/auth/login"}>
-                <div className="text-black  hidden lg:flex items-center space-x-2 font-anto">
+                <div className="text-black flex items-center space-x-2 font-anto">
                   <IoIosLogIn size={24} className="m-1" />
-                  Iniciar Sesión
+                  <span>Iniciar Sesión</span>
                 </div>
               </Link>
             </div>
