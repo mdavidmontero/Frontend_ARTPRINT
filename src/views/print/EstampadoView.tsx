@@ -162,15 +162,15 @@ const DecoracionScreen = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full md:flex-row">
-      <div className="flex w-full h-1/2 md:w-1/2 md:h-full bg-gray-800 p-2">
+    <div className="flex flex-col h-screen w-full">
+      <div className="flex w-full h-1/2 md:h-1/2 bg-gray-800 p-2">
         <div className="rounded-xl border-4 border-yellow-500 w-full h-full">
           <FabricJSCanvas onReady={onReady} className="w-full h-full" />
         </div>
       </div>
-      <div className="bg-gray-700 p-4 grid grid-cols-2 gap-2 w-full h-1/2 md:w-1/2 md:h-full md:flex md:flex-col md:items-center md:justify-center">
+      <div className="bg-gray-700 p-4 grid grid-cols-2 gap-2 w-full h-1/2 md:h-1/2">
         <div className="flex gap-2 items-center justify-center">
-          <label className="text-white"> Color:</label>
+          <label className="text-white">Color:</label>
           <input
             type="color"
             value={selectedColor}
@@ -180,7 +180,7 @@ const DecoracionScreen = () => {
         </div>
 
         <div className="flex gap-2 items-center justify-center">
-          <label className="text-white"> Lápiz:</label>
+          <label className="text-white">Lápiz:</label>
           <input
             type="number"
             value={brushWidth}
@@ -279,7 +279,7 @@ const DecoracionScreen = () => {
         </button>
         <button
           onClick={generateImage}
-          className=" px-2 py-2 bg-indigo-500 text-white rounded-xl"
+          className="px-2 py-2 bg-indigo-500 text-white rounded-xl"
         >
           Generar archivo
         </button>

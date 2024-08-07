@@ -65,14 +65,14 @@ export default function AppLayout({ setSearchQuery }: Props) {
                       )}
                     </div>
                     <Link to={"/admin/perfil"}>
-                      <div className="text-black font-bold hidden lg:flex items-center space-x-2 font-anto">
+                      <div className="text-black  hidden lg:flex items-center space-x-2 font-anto">
                         <CgProfile size={24} className="m-1" />
                         Perfil
                       </div>
                     </Link>
                     {user.role === "CLIENTE" && (
                       <Link to={"cliente/carritoCompras"}>
-                        <div className="text-black font-bold hidden lg:flex items-center space-x-2">
+                        <div className="text-black  hidden lg:flex items-center space-x-2">
                           <RiShoppingBag4Fill size={24} className="m-1" />
                           <p className="font-anto">Carrito Compras</p>
                         </div>
@@ -81,7 +81,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
 
                     {user.role === "CLIENTE" && (
                       <Link to={"/cliente"}>
-                        <div className="text-black font-bold hidden lg:flex items-center space-x-2">
+                        <div className="text-black  hidden lg:flex items-center space-x-2">
                           <RiShoppingBag4Fill size={24} className="m-1" />
                           <p className="font-anto">Productos</p>
                         </div>
@@ -89,7 +89,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
                     )}
                     {user.role === "ADMIN" && (
                       <Link to={"/admin"}>
-                        <div className="text-black font-bold hidden lg:flex items-center space-x-2">
+                        <div className="text-black  hidden lg:flex items-center space-x-2">
                           <RiShoppingBag4Fill size={24} className="m-1" />
                           <p className="font-anto">Gestión Tienda</p>
                         </div>
@@ -98,7 +98,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
 
                     <button
                       onClick={handleLogout}
-                      className="px-2 py-2 rounded text-black font-bold hidden gap-1 lg:flex items-center space-x-2 font-anto"
+                      className="px-2 py-2 rounded text-black  hidden gap-1 lg:flex items-center space-x-2 font-anto"
                     >
                       <IoExitOutline size={24} />
                       Cerrar Sesión
