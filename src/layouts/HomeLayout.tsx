@@ -30,7 +30,7 @@ export default function HomeLayout({ setSearchQuery }: Props) {
                 />
               </div>
               <Link to={"/auth/login"}>
-                <div className="text-black flex items-center space-x-2 font-anto">
+                <div className=" flex items-center space-x-2 font-anto">
                   <IoIosLogIn size={24} className="m-1" />
                   <span>Iniciar Sesión</span>
                 </div>

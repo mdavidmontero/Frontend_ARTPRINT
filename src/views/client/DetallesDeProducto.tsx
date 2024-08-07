@@ -248,13 +248,13 @@ export const DetallesDeProducto = () => {
     setSelected: React.Dispatch<React.SetStateAction<string>>
   ) => (
     <div>
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
+      <h2 className="text-lg font-bold mb-2">{title}</h2>
       <div className="flex flex-wrap mb-4">
         {items.map((item) => (
           <div
             key={item.id}
             className={`p-2 border rounded-md mr-2 mb-2 cursor-pointer ${
-              selected === item.id ? "bg-purple-600 text-white" : "bg-white"
+              selected === item.id ? "bg-indigo-600 text-white" : "bg-white"
             }`}
             onClick={() => setSelected(item.id)}
           >
@@ -292,230 +292,179 @@ export const DetallesDeProducto = () => {
   return (
     <div className="flex flex-col items-center bg-gray-100 p-4 min-h-screen">
       <div className="w-full max-w-3xl bg-white shadow-md rounded-lg overflow-hidden">
-        <div className="flex justify-center bg-purple-100 py-2">
-          <img
-            src={
-              producto!.colores.find((color) => color.id === selectedColor)
-                ?.imagenUrl || producto!.colores[0].imagenUrl
-            }
-            alt={producto!.nombre}
-            className="w-auto h-auto object-cover rounded"
-          />
-        </div>
-        <div className="p-6">
-          <h1 className="text-2xl font-bold text-justify">
-            {producto!.nombre}
-          </h1>
-          <p className="text-gray-700 font-bold text-justify ">
-            {" "}
-            Descripción:{" "}
-            <span className="font-normal text-justify">
+        <div className="flex flex-col md:flex-row">
+          {/* Imagen */}
+          <div className="flex justify-center bg-blue-200 p-2 md:w-1/2">
+            <img
+              src={
+                producto!.colores.find((color) => color.id === selectedColor)
+                  ?.imagenUrl || producto!.colores[0].imagenUrl
+              }
+              alt={producto!.nombre}
+              className="w-full h-auto max-w-xs object-contain rounded"
+            />
+          </div>
+
+          {/* Información */}
+          <div className="p-6 md:w-1/2">
+            <h1 className="text-xl font-bold text-justify uppercase">
+              {producto!.nombre}
+            </h1>
+            <p className="text-black font-semibold text-justify">
               {producto?.descripcion}
-            </span>
-          </p>
-          <p className="text-xl font-semibold">
-            ${producto!.precio.toFixed(2)}
-          </p>
-          <p className="text-gray-700 font-bold text-justify ">
-            {" "}
-            Material:{" "}
-            <span className="font-normal text-justify">
-              {producto?.materiales
-                .map((material) => material.nombre.split(", "))
-                .join("/")}
-            </span>
-          </p>
-          <p className="text-gray-700 font-bold text-justify ">
-            {" "}
-            Genero:{" "}
-            <span className="font-normal text-justify">{producto?.genero}</span>
-          </p>
+              <span className="font-normal text-justify"></span>
+              <hr className="border-t border-gray-400 my-2" />
+            </p>
+            <p className="text-xl font-semibold text-red-600">
+              ${producto!.precio.toFixed(2)}
+            </p>
+            <p className="text-gray-700 font-bold text-justify">
+              Material:{" "}
+              <span className="font-normal text-justify">
+                {producto?.materiales
+                  .map((material) => material.nombre.split(", "))
+                  .join("/")}
+              </span>
+            </p>
+            <p className="text-gray-700 font-bold text-justify">
+              Genero:{" "}
+              <span className="font-normal text-justify">
+                {producto?.genero}
+              </span>
+            </p>
 
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Tallas</h2>
-            <div className="flex flex-wrap mb-4">
-              {tallas.map((item) => (
-                <div
-                  key={item}
-                  className={`p-2 border rounded-md mr-2 mb-2 cursor-pointer ${
-                    selectedTalla === item
-                      ? "bg-purple-600 text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => setSelectedTalla(item)}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* {renderOptions(
-            "Selecciona la talla",
-            tallas,
-            selectedTalla,
-            setSelectedTalla
-          )} */}
-          {renderOptions(
-            "Selecciona el color",
-            coloresDisponibles,
-            selectedColor,
-            setSelectedColor
-          )}
-          {/* <div>
-            <h2 className="text-lg font-semibold mb-2">
-              Selecione el Material
-            </h2>
-            <div className="flex flex-wrap mb-4">
-              {materiales.map((item) => (
-                <div
-                  key={item.id}
-                  className={`p-2 border rounded-md mr-2 mb-2 cursor-pointer ${
-                    selectedMaterial === item.nombre
-                      ? "bg-purple-600 text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => setSelectedMaterial(item.nombre)}
-                >
-                  {item.nombre}
-                </div>
-              ))}
-            </div>
-          </div> */}
-          {/* {renderOptions(
-            "Selecciona el material",
-            materiales,
-            selectedMaterial,
-            setSelectedMaterial
-          )} */}
-          {/* {renderOptions(
-            "Selecciona la categoría",
-            categorias,
-            selectedCategoria,
-            setSelectedCategoria
-          )} */}
-          {/* {selectedMaterial &&
-            renderOptions(
-              "Selecciona la prenda",
-              prendas,
-              selectedPrenda,
-              setSelectedPrenda
-            )} */}
-          {/* {renderSimpleOptions(
-            "Selecciona el género",
-            ["Hombre", "Mujer", "Unisex"],
-            selectedGenero,
-            setSelectedGenero
-          )} */}
-
-          <div>
-            <button
-              onClick={togglePersonalizacion}
-              className="text-purple-600 hover:text-purple-700 font-semibold"
-            >
-              {showPersonalizacion
-                ? "Ocultar Estampados"
-                : "Seleccionar el Estampado"}
-            </button>
-          </div>
-
-          {showPersonalizacion && (
-            <>
-              <div className="">
-                <CarruselEstampados
-                  estampados={estampados}
-                  onSelect={handleSelectEstampado}
-                />
+            <div>
+              <h2 className="text-lg font-bold mb-2">Selecciona una Talla</h2>
+              <div className="flex flex-wrap mb-4">
+                {tallas.map((item) => (
+                  <div
+                    key={item}
+                    className={`p-2 border rounded-md mr-2 mb-2 cursor-pointer ${
+                      selectedTalla === item
+                        ? "bg-indigo-600 text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => setSelectedTalla(item)}
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
-            </>
-          )}
-          <br />
+            </div>
 
-          <h2 className="text-lg font-semibold mb-2">
-            Estampado Personalizado
-          </h2>
-          <button
-            className="p-2 bg-blue-700 hover:bg-blue-800 rounded text-white my-2"
-            onClick={() => setOcultarDecoracion(!ocultarDecoracion)}
-          >
-            {!ocultarDecoracion ? "Agregar Estampado" : "Ocultar Estampado"}
-          </button>
-          {ocultarDecoracion && (
-            <>
-              <div>
-                <DecoracionScreen />
-                <br />
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Seleccione una Imagen:
-                  </label>
-                  <div className="flex items-center">
-                    <label className="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
-                      Subir Imagen
-                      <input
-                        type="file"
-                        className="hidden"
-                        name="file"
-                        id="file"
-                        disabled={loading}
-                        onChange={handleFileChange}
-                      />
+            {renderOptions(
+              "Selecciona el color",
+              coloresDisponibles,
+              selectedColor,
+              setSelectedColor
+            )}
+
+            <div>
+              <button
+                onClick={togglePersonalizacion}
+                className="text-indigo-600 hover:text-indigo-700 font-bold"
+              >
+                {showPersonalizacion
+                  ? "Ocultar Estampados"
+                  : "Seleccionar el Estampado"}
+              </button>
+            </div>
+
+            {showPersonalizacion && (
+              <>
+                <div className="">
+                  <CarruselEstampados
+                    estampados={estampados}
+                    onSelect={handleSelectEstampado}
+                  />
+                </div>
+              </>
+            )}
+            <br />
+
+            <button
+              className="p-2 bg-indigo-700 hover:bg-indigo-800 rounded-md text-white my-2"
+              onClick={() => setOcultarDecoracion(!ocultarDecoracion)}
+            >
+              {!ocultarDecoracion ? "Agregar Estampado" : "Ocultar Estampado"}
+            </button>
+            {ocultarDecoracion && (
+              <>
+                <div>
+                  <DecoracionScreen />
+                  <br />
+                  <div className="mb-4">
+                    <label className="block text-lg font-bold mb-2">
+                      Seleccione una Imagen:
                     </label>
-                    {loadingUpload && (
-                      <span className="ml-4 text-gray-500">
-                        Cargando imagen...
-                      </span>
-                    )}
+                    <div className="flex items-center">
+                      <label className="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
+                        Subir Imagen
+                        <input
+                          type="file"
+                          className="hidden"
+                          name="file"
+                          id="file"
+                          disabled={loading}
+                          onChange={handleFileChange}
+                        />
+                      </label>
+                      {loadingUpload && (
+                        <span className="ml-4 text-gray-500">
+                          Cargando imagen...
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
 
-          {selectedEstampado && (
-            <div className="mb-4 flex flex-col  md:items-start items-center">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Imagen Estampado:
-              </label>
-              <div className="py-2">
-                <img
-                  src={selectedEstampado}
-                  alt={`Imagen del producto ${producto?.nombre}`}
-                  className="mt-2 rounded"
-                  style={{ maxWidth: "100%", maxHeight: "200px" }}
-                />
+            {selectedEstampado && (
+              <div className="mb-4 flex flex-col md:items-start items-center">
+                <label className="block text-gray-700 text-xl font-bold mb-2">
+                  Imagen Estampado:
+                </label>
+                <div className="py-2">
+                  <img
+                    src={selectedEstampado}
+                    alt={`Imagen del producto ${producto?.nombre}`}
+                    className="mt-2 rounded max-w-xs object-contain"
+                    style={{ maxHeight: "200px" }}
+                  />
+                </div>
               </div>
+            )}
+
+            <h2 className="text-lg font-bold mb-2">Selecciona la cantidad</h2>
+            <div className="flex items-center justify-center mb-4">
+              <button
+                onClick={handleDecrement}
+                className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xl"
+              >
+                -
+              </button>
+              <span className="mx-4 text-xl">{cantidad}</span>
+              <button
+                onClick={handleIncrement}
+                className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xl"
+              >
+                +
+              </button>
             </div>
-          )}
 
-          <h2 className="text-lg font-semibold mb-2">Selecciona la cantidad</h2>
-          <div className="flex items-center justify-center mb-4">
             <button
-              onClick={handleDecrement}
-              className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-lg"
+              onClick={handleAddToCart}
+              className={`w-full py-3 text-xl font-semibold text-white rounded-full ${
+                addToCartDisabled || isAddingToCart
+                  ? "bg-gray-400"
+                  : "bg-customBlue"
+              }`}
+              disabled={addToCartDisabled || isAddingToCart}
             >
-              -
-            </button>
-            <span className="mx-4 text-lg">{cantidad}</span>
-            <button
-              onClick={handleIncrement}
-              className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-lg"
-            >
-              +
+              {isAddingToCart ? "Agregando..." : "Agregar al Carrito"}
             </button>
           </div>
-
-          <button
-            onClick={handleAddToCart}
-            className={`w-full py-3 text-lg font-semibold text-white rounded-md ${
-              addToCartDisabled || isAddingToCart
-                ? "bg-gray-400"
-                : "bg-purple-600"
-            }`}
-            disabled={addToCartDisabled || isAddingToCart}
-          >
-            {isAddingToCart ? "Agregando..." : "Agregar al Carrito"}
-          </button>
         </div>
       </div>
     </div>
