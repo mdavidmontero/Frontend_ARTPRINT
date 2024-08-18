@@ -149,8 +149,8 @@ const ProductoForm = () => {
       const file = e.target.files?.[0];
       if (file) {
         const imageUrl = await useImageUpload(file);
-        const selectedColorId = producto.colores[index].id; // Obtén el id del color seleccionado
-        handleColorChange(index, selectedColorId, imageUrl); // Pasar el id del color seleccionado
+        const selectedColorId = producto.colores[index].id;
+        handleColorChange(index, selectedColorId, imageUrl);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -479,15 +479,6 @@ const ProductoForm = () => {
 
             {color.imagenUrl && (
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  URL de la Imagen:
-                </label>
-                <input
-                  className="border border-gray-300 rounded px-3 py-2 w-full"
-                  type="text"
-                  value={color.imagenUrl}
-                  readOnly
-                />
                 <img
                   src={color.imagenUrl}
                   alt={`Imagen de color ${color.nombre}`}

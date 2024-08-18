@@ -6,7 +6,10 @@ import {
   crearEstampado,
   obtenerEstampadoPorId,
 } from "../../../api/AccesoriosAPI";
-import { useImageUpload } from "../../../api/UploadImages";
+import {
+  useImageUpload,
+  useImageUploadEstampado,
+} from "../../../api/UploadImages";
 
 const EstampadoForm = () => {
   const [nombre, setNombre] = useState<string>("");
@@ -42,7 +45,7 @@ const EstampadoForm = () => {
       setLoading(true);
       const file = e.target.files?.[0];
       if (file) {
-        const imageUrl = await useImageUpload(file);
+        const imageUrl = await useImageUploadEstampado(file);
         setImageUrl(imageUrl);
       }
     } catch (error) {

@@ -154,10 +154,10 @@ export default function ProfileForm() {
             id="correo"
             type="email"
             placeholder="Tu Email"
-            disabled={!id ? true : true}
-            className={`${
-              !id ? "disabled:bg-gray-400" : ""
-            }w-full p-3 border border-gray-200`}
+            disabled={id ? true : false}
+            className={`w-full p-3 border border-gray-200 ${
+              id ? "disabled:bg-gray-200" : " "
+            }`}
             {...register("correo", {
               required: "El e-mail es obligatorio",
               pattern: {

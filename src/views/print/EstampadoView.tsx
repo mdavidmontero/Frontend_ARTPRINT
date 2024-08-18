@@ -1,6 +1,9 @@
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import { fabric } from "fabric";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { storage } from "../../config/firebase";
+
 const DecoracionScreen = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { editor, onReady } = useFabricJSEditor();
@@ -9,10 +12,38 @@ const DecoracionScreen = () => {
   const [history, setHistory] = useState<any[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false);
-
   const [text, setText] = useState<string>("Texto aquí");
   const [fontSize, setFontSize] = useState<number>(24);
   const [fontFamily, setFontFamily] = useState<string>("Arial");
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageUrlsEstampado, setImageUrlsEstampado] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const storageRef = ref(storage, "images/");
+      const result = await listAll(storageRef);
+      const urls = await Promise.all(
+        result.items.map((item) => getDownloadURL(item))
+      );
+      setImageUrls(urls);
+    };
+
+    fetchImages();
+  }, []);
+  useEffect(() => {
+    const fetchImagesEstampado = async () => {
+      const storageRef = ref(storage, "estampados/");
+      const result = await listAll(storageRef);
+      const urls = await Promise.all(
+        result.items.map((item) => getDownloadURL(item))
+      );
+      setImageUrlsEstampado(urls);
+    };
+
+    fetchImagesEstampado();
+  }, []);
+
+  console.log(imageUrls);
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
@@ -42,37 +73,18 @@ const DecoracionScreen = () => {
     if (!event.target.files) return;
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
-    fabric.Image.fromURL(url, (oImg) => {
-      oImg.scale(0.3);
-      editor?.canvas.add(oImg);
-      saveCanvasState();
-    });
+    fabric.Image.fromURL(
+      url,
+      (oImg) => {
+        oImg.scale(0.3);
+        editor?.canvas.add(oImg);
+        saveCanvasState();
+      },
+      {
+        crossOrigin: "anonymous",
+      }
+    );
   };
-
-  // const addRectangle = () => {
-  //   const rect = new fabric.Rect({
-  //     left: 100,
-  //     top: 100,
-  //     fill: selectedColor,
-  //     width: 150,
-  //     height: 100,
-  //     selectable: true,
-  //   });
-  //   editor?.canvas.add(rect);
-  //   saveCanvasState();
-  // };
-
-  // const addCircle = () => {
-  //   const circle = new fabric.Circle({
-  //     left: 200,
-  //     top: 200,
-  //     radius: 50,
-  //     fill: selectedColor,
-  //     selectable: true,
-  //   });
-  //   editor?.canvas.add(circle);
-  //   saveCanvasState();
-  // };
 
   const handleLayerUp = () => {
     const activeObject = editor?.canvas.getActiveObject();
@@ -115,7 +127,6 @@ const DecoracionScreen = () => {
       setHistoryIndex(newHistoryIndex);
       const canvasState = history[newHistoryIndex];
       // @ts-ignore
-
       editor?.canvas.loadFromJSON(canvasState);
       editor?.canvas.renderAll();
     }
@@ -152,24 +163,67 @@ const DecoracionScreen = () => {
   };
 
   const generateImage = () => {
-    const dataURL = editor?.canvas.toDataURL();
+    if (!editor?.canvas) return;
+    const dataURL = editor.canvas.toDataURL({
+      format: "png",
+      quality: 1.0,
+    });
     const a = document.createElement("a");
-    a.download = "image.png";
-    // @ts-ignore
-
     a.href = dataURL;
+    a.download = "image.png";
     a.click();
   };
 
+  const handleImageClick = (url: string) => {
+    fabric.Image.fromURL(
+      url,
+      (oImg) => {
+        oImg.scale(0.3);
+        editor?.canvas.add(oImg);
+        saveCanvasState();
+      },
+      {
+        crossOrigin: "anonymous",
+      }
+    );
+  };
+
   return (
-    <div className="flex flex-col h-screen w-full">
-      <div className="flex w-full h-1/2 md:h-1/2 bg-gray-800 p-2">
-        <div className="rounded-xl border-4 border-yellow-500 w-full h-full">
+    <div className="flex flex-col w-full min-h-max">
+      <div className="w-full h-1/4 bg-gray-800 overflow-x-scroll flex gap-2 p-2">
+        {imageUrls.map((url, index) => (
+          <img
+            key={index}
+            src={url}
+            alt={`Firebase Image ${index}`}
+            className="w-32 h-32 object-cover cursor-pointer"
+            onClick={() => handleImageClick(url)}
+          />
+        ))}
+      </div>
+      <div className="w-full h-1/4 bg-gray-800 overflow-x-scroll flex gap-2 p-2">
+        {imageUrlsEstampado.map((url, index) => (
+          <img
+            key={index}
+            src={url}
+            alt={`Firebase Image ${index}`}
+            className="w-32 h-32 object-cover cursor-pointer"
+            onClick={() => handleImageClick(url)}
+          />
+        ))}
+      </div>
+
+      {/* Canvas */}
+      <div className="flex flex-grow bg-gray-800 p-2">
+        <div className="rounded-xl border-4 border-yellow-500 w-full h-96">
+          {" "}
           <FabricJSCanvas onReady={onReady} className="w-full h-full" />
         </div>
       </div>
-      <div className="bg-gray-700 p-4 grid grid-cols-2 gap-2 w-full h-1/2 md:h-1/2">
-        <div className="flex gap-2 items-center justify-center">
+
+      {/* Controles */}
+      <div className="bg-gray-700 p-2 grid grid-cols-2 gap-2 w-full">
+        {/* <div className="flex gap-2 items-center justify-center">
           <label className="text-white">Color:</label>
           <input
             type="color"
@@ -177,9 +231,9 @@ const DecoracionScreen = () => {
             onChange={(e) => handleColorChange(e.target.value)}
             className="p-2 rounded-lg"
           />
-        </div>
+        </div> */}
 
-        <div className="flex gap-2 items-center justify-center">
+        {/* <div className="flex gap-2 items-center justify-center">
           <label className="text-white">Lápiz:</label>
           <input
             type="number"
@@ -188,24 +242,7 @@ const DecoracionScreen = () => {
             className="p-2 rounded-lg w-14 text-center"
             min="1"
           />
-        </div>
-
-        <button
-          onClick={toggleDrawingMode}
-          className={`text-white p-1 rounded-lg ${
-            isDrawingMode ? "bg-blue-500" : ""
-          }`}
-        >
-          {isDrawingMode ? (
-            <>
-              <span className="mr-2">Dibujo ON</span>
-            </>
-          ) : (
-            <>
-              <span className="mr-2">Dibujo OFF</span>
-            </>
-          )}
-        </button>
+        </div> */}
 
         <button
           onClick={() => inputRef.current?.click()}
@@ -227,7 +264,6 @@ const DecoracionScreen = () => {
         <button onClick={handleLayerDown} className="text-white p-1 rounded-lg">
           Abajo
         </button>
-
         <button onClick={handleDelete} className="text-white p-1 rounded-lg">
           Eliminar
         </button>
@@ -247,41 +283,11 @@ const DecoracionScreen = () => {
           Limpiar
         </button>
 
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={text}
-            onChange={handleTextChange}
-            placeholder="Texto"
-            className="p-1 rounded-lg text-black w-32"
-          />
-          <input
-            type="number"
-            value={fontSize}
-            onChange={(e) => setFontSize(Number(e.target.value))}
-            placeholder="Tamaño"
-            className="p-1 rounded-lg text-black w-16"
-            min="1"
-          />
-        </div>
-        <select
-          value={fontFamily}
-          onChange={(e) => setFontFamily(e.target.value)}
-          className="p-1 rounded-lg text-black ml-3 w-28"
-        >
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Courier New">Courier New</option>
-          <option value="Verdana">Verdana</option>
-        </select>
-        <button onClick={addText} className="text-white p-1 rounded-lg">
-          Agregar Texto
-        </button>
         <button
           onClick={generateImage}
-          className="px-2 py-2 bg-indigo-500 text-white rounded-xl"
+          className="text-white p-1 rounded-lg bg-green-500"
         >
-          Generar archivo
+          Guardar Imagen
         </button>
       </div>
     </div>
