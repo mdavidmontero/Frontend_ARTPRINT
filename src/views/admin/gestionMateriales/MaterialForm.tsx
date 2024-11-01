@@ -74,31 +74,27 @@ const MaterialForm = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">
+    <div className="container p-4 mx-auto md:p-6">
+      <h1 className="mb-6 text-3xl font-bold text-center">
         {id ? "Editar Material" : "Añadir Material"}
       </h1>
-      <input
-        className="border border-gray-300 rounded px-3 py-2 mb-4"
-        type="text"
-        placeholder="Nombre"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-      />
-      {/* <input
-        className="border border-gray-300 rounded px-3 py-2 mb-4"
-        type="number"
-        placeholder="Precio Extra"
-        value={precioExtra}
-        onChange={(e) => setPrecioExtra(e.target.value)}
-      /> */}
-      <button
-        className="bg-purple-600 text-white py-2 px-4 rounded"
-        onClick={handleSave}
-        disabled={loading}
-      >
-        {loading ? "Guardando..." : "Guardar"}
-      </button>
+      <div className="w-full max-w-md mx-auto">
+        <input
+          className="w-full px-3 py-2 mb-4 border border-gray-300 rounded"
+          type="text"
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+
+        <button
+          className="w-full px-4 py-2 text-white bg-green-600 rounded shadow hover:bg-green-700"
+          onClick={handleSave}
+          disabled={loading}
+        >
+          {loading ? "Guardando..." : "Guardar"}
+        </button>
+      </div>
     </div>
   );
 };

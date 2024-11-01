@@ -72,10 +72,10 @@ const Home = ({ searchQuery }: Props) => {
 
   return (
     <>
-      <div className={"bg-customBlue h-10 flex justify-evenly "}>
+      <div className={"bg-customVerde h-10 flex justify-evenly "}>
         <button
           className={`font-bold text-white px-5 ${
-            selectedGenero === "Mujer" ? "bg-amber-500" : ""
+            selectedGenero === "Mujer" ? "bg-customBlueVerde" : ""
           }`}
           onClick={() => handleGeneroFilter("Mujer")}
         >
@@ -83,7 +83,7 @@ const Home = ({ searchQuery }: Props) => {
         </button>
         <button
           className={`font-bold text-white px-5 ${
-            selectedGenero === "Hombre" ? "bg-amber-500" : ""
+            selectedGenero === "Hombre" ? "bg-customBlueVerde" : ""
           }`}
           onClick={() => handleGeneroFilter("Hombre")}
         >
@@ -91,7 +91,7 @@ const Home = ({ searchQuery }: Props) => {
         </button>
         <button
           className={`font-bold text-white  px-5 ${
-            selectedGenero === "Unisex" ? "bg-amber-500" : ""
+            selectedGenero === "Unisex" ? "bg-customBlueVerde" : ""
           }`}
           onClick={() => handleGeneroFilter("Unisex")}
         >
@@ -99,29 +99,29 @@ const Home = ({ searchQuery }: Props) => {
         </button>
         <button
           className={`font-bold text-white px-5 ${
-            selectedGenero === null ? "bg-amber-500" : ""
+            selectedGenero === null ? "bg-customBlueVerde" : ""
           }`}
           onClick={() => handleGeneroFilter(null!)}
         >
           Todos
         </button>
       </div>
-      <div className="bg-customYellow h-4 mt-2"></div>
+      <div className="h-4 mt-2 bg-customYellow"></div>
 
-      <div className="flex flex-col min-h-screen bg-gray-100 overflow-x-hidden">
+      <div className="flex flex-col min-h-screen overflow-x-hidden bg-gray-100">
         <div className="py-2">
           <CarrouselHome />
         </div>
-        <div className="bg-customYellow h-4"></div>
+        <div className="h-4 bg-customBlueVerde"></div>
         <h2 className="text-2xl text-center font-anto">Productos</h2>
-        <div className="bg-customYellow h-4"></div>
+        <div className="h-4 bg-customBlueVerde"></div>
         {loading ? (
-          <div className="flex justify-center items-center flex-grow">
+          <div className="flex items-center justify-center flex-grow">
             <div className="loader"></div>
           </div>
         ) : (
-          <div className="flex-grow overflow-y-auto mt-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4">
+          <div className="flex-grow mt-8 overflow-y-auto">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:gap-4">
               {filteredProductos.map((producto, index) => (
                 <TarjetaDeProducto
                   key={index}

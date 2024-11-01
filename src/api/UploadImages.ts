@@ -14,3 +14,16 @@ export const useImageUpload = async (file: File) => {
     throw error;
   }
 };
+
+export const useImageUploadEstampado = async (file: File) => {
+  try {
+    const storageRef = ref(storage, `estampados/${uuidv4()}`);
+    const snapshot = await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(snapshot.ref);
+    console.log("File uploaded successfully. URL:", url);
+    return url;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    throw error;
+  }
+};

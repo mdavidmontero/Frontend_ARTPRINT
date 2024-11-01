@@ -4,9 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        customYellow: "#FFBD59",
+        customYellow: "#BF8F43",
         customBlue: "#021993",
         customRed: "#EF1305",
+        customPantone: "#F3F0EB",
+        customVerde: "#718359",
+        customFondo: "#F3F0EB",
+        customBlueVerde: "#AFC7AD",
       },
       fontFamily: {
         arima: ["Arima", "sans-serif"],

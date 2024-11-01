@@ -58,20 +58,19 @@ const ColorForm = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">
+    <div className="container p-4 mx-auto md:p-6">
+      <h1 className="mb-6 text-3xl font-bold text-center">
         {id ? "Editar Color" : "Añadir Color"}
       </h1>
       <div className="w-full max-w-md mx-auto">
         <input
-          className="w-full h-10 px-3 border rounded mb-4"
-          type="text"
+          className="w-full px-3 py-2 mb-4 border border-gray-300 rounded"
           placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
         <button
-          className="w-full bg-purple-600 text-white px-4 py-2 rounded shadow hover:bg-purple-700"
+          className="w-full px-4 py-2 text-white bg-green-600 rounded shadow hover:bg-green-700"
           onClick={handleSave}
           disabled={loading}
         >
