@@ -8,14 +8,14 @@ const DecoracionScreen = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputDressRef = useRef<HTMLInputElement>(null);
   const { editor, onReady } = useFabricJSEditor();
-  const [selectedColor, setSelectedColor] = useState<string>("#ff0000");
+  // const [selectedColor, setSelectedColor] = useState<string>("#ff0000");
   const [brushWidth, setBrushWidth] = useState<number>(5);
   const [history, setHistory] = useState<any[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false);
-  const [text, setText] = useState<string>("Texto aquí");
-  const [fontSize, setFontSize] = useState<number>(24);
-  const [fontFamily, setFontFamily] = useState<string>("Arial");
+  // const [text, setText] = useState<string>("Texto aquí");
+  // const [fontSize, setFontSize] = useState<number>(24);
+  // const [fontFamily, setFontFamily] = useState<string>("Arial");
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageUrlsEstampado, setImageUrlsEstampado] = useState<string[]>([]);
 
@@ -45,12 +45,12 @@ const DecoracionScreen = () => {
     fetchImagesEstampado();
   }, []);
 
-  const handleColorChange = (color: string) => {
-    setSelectedColor(color);
-    if (editor?.canvas) {
-      editor.canvas.freeDrawingBrush.color = color;
-    }
-  };
+  // const handleColorChange = (color: string) => {
+  //   setSelectedColor(color);
+  //   if (editor?.canvas) {
+  //     editor.canvas.freeDrawingBrush.color = color;
+  //   }
+  // };
 
   const handleBrushWidthChange = (width: number) => {
     setBrushWidth(width);
@@ -162,22 +162,22 @@ const DecoracionScreen = () => {
     setHistoryIndex(-1);
   };
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-  };
+  // const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setText(event.target.value);
+  // };
 
-  const addText = () => {
-    const textObject = new fabric.Textbox(text, {
-      left: 100,
-      top: 100,
-      fill: selectedColor,
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      selectable: true,
-    });
-    editor?.canvas.add(textObject);
-    saveCanvasState();
-  };
+  // const addText = () => {
+  //   const textObject = new fabric.Textbox(text, {
+  //     left: 100,
+  //     top: 100,
+  //     fill: selectedColor,
+  //     fontSize: fontSize,
+  //     fontFamily: fontFamily,
+  //     selectable: true,
+  //   });
+  //   editor?.canvas.add(textObject);
+  //   saveCanvasState();
+  // };
 
   const saveCanvasState = () => {
     const canvasState = editor?.canvas.toJSON();
@@ -281,9 +281,9 @@ const DecoracionScreen = () => {
           {isDrawingMode ? "Desactivar Dibujo" : "Activar Dibujo"}
         </button>
 
-        <button onClick={addText} className="p-1 text-white rounded-lg">
+        {/* <button onClick={addText} className="p-1 text-white rounded-lg">
           Agregar Texto
-        </button>
+        </button> */}
 
         <button onClick={handleUndo} className="p-1 text-white rounded-lg">
           Deshacer

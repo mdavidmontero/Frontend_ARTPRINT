@@ -6,10 +6,7 @@ import {
   crearEstampado,
   obtenerEstampadoPorId,
 } from "../../../api/AccesoriosAPI";
-import {
-  useImageUpload,
-  useImageUploadEstampado,
-} from "../../../api/UploadImages";
+import { useImageUploadEstampado } from "../../../api/UploadImages";
 
 const EstampadoForm = () => {
   const [nombre, setNombre] = useState<string>("");
