@@ -235,7 +235,7 @@ export const DetallesDeProducto = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex items-center justify-center h-screen">
         <Spinner />
       </div>
     );
@@ -248,13 +248,13 @@ export const DetallesDeProducto = () => {
     setSelected: React.Dispatch<React.SetStateAction<string>>
   ) => (
     <div>
-      <h2 className="text-lg font-bold mb-2">{title}</h2>
+      <h2 className="mb-2 text-lg font-bold">{title}</h2>
       <div className="flex flex-wrap mb-4">
         {items.map((item) => (
           <div
             key={item.id}
             className={`p-2 border rounded-md mr-2 mb-2 cursor-pointer ${
-              selected === item.id ? "bg-indigo-600 text-white" : "bg-white"
+              selected === item.id ? "bg-customYellow text-white" : "bg-white"
             }`}
             onClick={() => setSelected(item.id)}
           >
@@ -272,7 +272,7 @@ export const DetallesDeProducto = () => {
   //   setSelected: React.Dispatch<React.SetStateAction<string>>
   // ) => (
   //   <div>
-  //     <h2 className="text-lg font-semibold mb-2">{title}</h2>
+  //     <h2 className="mb-2 text-lg font-semibold">{title}</h2>
   //     <div className="flex flex-wrap mb-4">
   //       {items.map((item) => (
   //         <div
@@ -291,18 +291,18 @@ export const DetallesDeProducto = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center bg-gray-100 p-4 min-h-screen">
-        <div className="w-full max-w-3xl bg-white shadow-md rounded-lg overflow-hidden">
+      <div className="flex flex-col items-center min-h-screen p-4 bg-gray-100">
+        <div className="w-full max-w-3xl overflow-hidden bg-white rounded-lg shadow-md">
           <div className="flex flex-col md:flex-row">
             {/* Imagen */}
-            <div className="flex justify-center bg-blue-200 p-2 md:w-1/2">
+            <div className="flex justify-center p-2 bg-customBlueVerde md:w-1/2">
               <img
                 src={
                   producto!.colores.find((color) => color.id === selectedColor)
                     ?.imagenUrl || producto!.colores[0].imagenUrl
                 }
                 alt={producto!.nombre}
-                className="w-full h-auto max-w-xs object-contain rounded"
+                className="object-contain w-full h-auto max-w-xs rounded"
               />
             </div>
 
@@ -311,15 +311,15 @@ export const DetallesDeProducto = () => {
               <h1 className="text-xl font-bold text-justify uppercase">
                 {producto!.nombre}
               </h1>
-              <p className="text-black font-semibold text-justify">
+              <p className="font-semibold text-justify text-black">
                 {producto?.descripcion}
                 <span className="font-normal text-justify"></span>
-                <hr className="border-t border-gray-400 my-2" />
+                <hr className="my-2 border-t border-gray-400" />
               </p>
               <p className="text-xl font-semibold text-red-600">
                 ${producto!.precio.toFixed(2)}
               </p>
-              <p className="text-gray-700 font-bold text-justify">
+              <p className="font-bold text-justify text-gray-700">
                 Material:{" "}
                 <span className="font-normal text-justify">
                   {producto?.materiales
@@ -327,7 +327,7 @@ export const DetallesDeProducto = () => {
                     .join("/")}
                 </span>
               </p>
-              <p className="text-gray-700 font-bold text-justify">
+              <p className="font-bold text-justify text-gray-700">
                 Genero:{" "}
                 <span className="font-normal text-justify">
                   {producto?.genero}
@@ -335,14 +335,14 @@ export const DetallesDeProducto = () => {
               </p>
 
               <div>
-                <h2 className="text-lg font-bold mb-2">Selecciona una Talla</h2>
+                <h2 className="mb-2 text-lg font-bold">Selecciona una Talla</h2>
                 <div className="flex flex-wrap mb-4">
                   {tallas.map((item) => (
                     <div
                       key={item}
                       className={`p-2 border rounded-md mr-2 mb-2 cursor-pointer ${
                         selectedTalla === item
-                          ? "bg-indigo-600 text-white"
+                          ? "bg-customYellow text-white"
                           : "bg-white"
                       }`}
                       onClick={() => setSelectedTalla(item)}
@@ -363,7 +363,7 @@ export const DetallesDeProducto = () => {
               <div>
                 <button
                   onClick={togglePersonalizacion}
-                  className="text-indigo-600 hover:text-indigo-700 font-bold"
+                  className="font-bold text-customYellow hover:text-[#a97b30]"
                 >
                   {showPersonalizacion
                     ? "Ocultar Estampados"
@@ -384,33 +384,33 @@ export const DetallesDeProducto = () => {
               <br />
 
               {selectedEstampado && (
-                <div className="mb-4 flex flex-col md:items-start items-center">
-                  <label className="block text-gray-700 text-xl font-bold mb-2">
+                <div className="flex flex-col items-center mb-4 md:items-start">
+                  <label className="block mb-2 text-xl font-bold text-gray-700">
                     Imagen Estampado:
                   </label>
                   <div className="py-2">
                     <img
                       src={selectedEstampado}
                       alt={`Imagen del producto ${producto?.nombre}`}
-                      className="mt-2 rounded max-w-xs object-contain"
+                      className="object-contain max-w-xs mt-2 rounded"
                       style={{ maxHeight: "200px" }}
                     />
                   </div>
                 </div>
               )}
 
-              <h2 className="text-lg font-bold mb-2">Selecciona la cantidad</h2>
+              <h2 className="mb-2 text-lg font-bold">Selecciona la cantidad</h2>
               <div className="flex items-center justify-center mb-4">
                 <button
                   onClick={handleDecrement}
-                  className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xl"
+                  className="flex items-center justify-center w-8 h-8 text-xl bg-gray-200 rounded-full"
                 >
                   -
                 </button>
                 <span className="mx-4 text-xl">{cantidad}</span>
                 <button
                   onClick={handleIncrement}
-                  className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xl"
+                  className="flex items-center justify-center w-8 h-8 text-xl bg-gray-200 rounded-full"
                 >
                   +
                 </button>
@@ -421,7 +421,7 @@ export const DetallesDeProducto = () => {
                 className={`w-full py-3 text-xl font-semibold text-white rounded-full ${
                   addToCartDisabled || isAddingToCart
                     ? "bg-gray-400"
-                    : "bg-customBlue"
+                    : "bg-customYellow"
                 }`}
                 disabled={addToCartDisabled || isAddingToCart}
               >
@@ -431,7 +431,7 @@ export const DetallesDeProducto = () => {
           </div>
           <div className="m-3">
             <button
-              className="p-2 bg-indigo-700 hover:bg-indigo-800 rounded-md text-white my-2"
+              className="p-2 my-2 text-white rounded-md bg-customYellow hover:bg-[#a0742e]"
               onClick={() => setOcultarDecoracion(!ocultarDecoracion)}
             >
               {!ocultarDecoracion ? "Agregar Estampado" : "Ocultar Estampado"}
@@ -442,11 +442,11 @@ export const DetallesDeProducto = () => {
                   <DecoracionScreen />
                   <br />
                   <div className="mb-4">
-                    <label className="block text-lg font-bold mb-2">
+                    <label className="block mb-2 text-lg font-bold">
                       Seleccione una Imagen:
                     </label>
                     <div className="flex items-center">
-                      <label className="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
+                      <label className="px-4 py-2 text-white transition duration-300 bg-indigo-600 rounded cursor-pointer hover:bg-indigo-700">
                         Subir Imagen
                         <input
                           type="file"

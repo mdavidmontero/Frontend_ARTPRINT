@@ -45,29 +45,29 @@ export default function LoginView() {
   };
   return (
     <>
-      <h1 className="text-5xl font-black text-black text-center">
+      <h1 className="text-5xl font-black text-center text-black">
         Iniciar Sesión
       </h1>
-      <p className="text-2xl font-bold text-gray-600 mt-5">
+      <p className="mt-5 text-2xl font-bold text-white">
         Inicia Sesión con tu correo {""}
-        <span className=" text-customBlue font-bold">
+        <span className="font-bold text-customBlueVerde">
           {" "}
           para realizar compras
         </span>
       </p>
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="space-y-8 p-10 mt-10 bg-white rounded-md"
+        className="p-10 mt-10 space-y-8 bg-white rounded-md"
         noValidate
       >
         <div className="flex flex-col gap-5">
-          <label className="font-normal text-2xl">Email</label>
+          <label className="text-2xl font-normal">Email</label>
 
           <input
             id="email"
             type="email"
             placeholder="Email de Registro"
-            className="w-full p-3  border-gray-300 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             {...register("email", {
               required: "El Email es obligatorio",
               pattern: {
@@ -80,12 +80,12 @@ export default function LoginView() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <label className="font-normal text-2xl">Password</label>
+          <label className="text-2xl font-normal">Password</label>
 
           <input
             type="password"
             placeholder="Password de Registro"
-            className="w-full p-3  border-gray-300 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             {...register("password", {
               required: "El Password es obligatorio",
             })}
@@ -98,13 +98,13 @@ export default function LoginView() {
         <input
           type="submit"
           value="Iniciar Sesión"
-          className="bg-blue-600 hover:bg-blue-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+          className="w-full p-3 text-xl font-black text-white bg-blue-600 cursor-pointer hover:bg-blue-700"
         />
       </form>
-      <nav className="mt-10 flex flex-col space-y-4">
+      <nav className="flex flex-col mt-10 space-y-4">
         <Link
           to={"/auth/register"}
-          className="text-center text-gray-900 font-normal"
+          className="font-normal text-center text-gray-900"
         >
           ¿No tienes Cuenta? Crear una{" "}
         </Link>

@@ -14,22 +14,20 @@ const TarjetaDeProducto: React.FC<Props> = ({
   return (
     <button
       onClick={onPress}
-      className="w-44 rounded-lg m-2 bg-white shadow-md hover:shadow-lg transition-shadow"
+      className="m-2 transition-shadow bg-gray-200 rounded-lg shadow-md w-44 hover:shadow-lg"
     >
       <div className="flex justify-start">
         <img
-          className="w-44 h-56 rounded-t-lg object-cover"
+          className="object-cover h-56 rounded-t-lg w-44"
           src={imagen}
           alt={titulo}
         />
       </div>
       <div className="flex flex-col justify-start p-3">
-        <h3 className="text-lg font-bold mb-1 text-gray-700 text-left">
+        <h3 className="mb-1 text-lg font-bold text-left text-gray-900">
           {titulo}
         </h3>
-        <p className="text-sm font-semibold text-purple-600 text-left">
-          ${precio}
-        </p>
+        <p className="font-semibold text-left text-black text-md">${precio}</p>
       </div>
     </button>
   );

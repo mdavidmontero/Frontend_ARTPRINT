@@ -63,26 +63,28 @@ const TallaForm = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold">
+    <div className="container p-4 mx-auto md:p-6">
+      <h1 className="mb-6 text-3xl font-bold text-center">
         {id ? "Editar Talla" : "Añadir Talla"}
       </h1>
-      <input
-        className="border border-gray-300 rounded px-2 py-1 w-full mb-4"
-        type="text"
-        placeholder="Nombre"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-      />
-      <button
-        className={`bg-purple-600 text-white py-2 px-4 rounded ${
-          loading ? "opacity-50 cursor-not-allowed" : "hover:bg-purple-700"
-        }`}
-        onClick={handleSave}
-        disabled={loading}
-      >
-        {loading ? "Guardando..." : "Guardar"}
-      </button>
+      <div className="w-full max-w-md mx-auto">
+        <input
+          className="w-full h-10 px-3 mb-4 border rounded"
+          type="text"
+          placeholder="S, M, L, XL, XXL "
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+        <button
+          className={`w-full bg-green-600 text-white py-2 px-4 rounded ${
+            loading ? "opacity-50 cursor-not-allowed" : "hover:bg-green-700"
+          }`}
+          onClick={handleSave}
+          disabled={loading}
+        >
+          {loading ? "Guardando..." : "Guardar"}
+        </button>
+      </div>
     </div>
   );
 };

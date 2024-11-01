@@ -98,7 +98,7 @@ const PrendaForm = () => {
 
   return (
     <div className="flex flex-col items-center mt-8">
-      <h1 className="text-3xl font-bold mb-4">
+      <h1 className="mb-4 text-3xl font-bold">
         {id ? "Editar Prenda" : "Añadir Prenda"}
       </h1>
       {loading ? (
@@ -106,7 +106,7 @@ const PrendaForm = () => {
       ) : (
         <div className="w-full max-w-md">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="nombre"
           >
             Nombre
@@ -122,10 +122,10 @@ const PrendaForm = () => {
             onChange={(e) => setNombre(e.target.value)}
           />
           {errors.nombre && (
-            <p className="text-red-500 text-xs italic">Nombre es requerido</p>
+            <p className="text-xs italic text-red-500">Nombre es requerido</p>
           )}
           <label
-            className="block text-gray-700 text-sm font-bold mt-4 mb-2"
+            className="block mt-4 mb-2 text-sm font-bold text-gray-700"
             htmlFor="categoria"
           >
             Categoría
@@ -147,13 +147,13 @@ const PrendaForm = () => {
               ))}
             </select>
             {errors.idCategoria && (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-xs italic text-red-500">
                 Categoría es requerida
               </p>
             )}
           </div>
           <label
-            className="block text-gray-700 text-sm font-bold mt-4 mb-2"
+            className="block mt-4 mb-2 text-sm font-bold text-gray-700"
             htmlFor="precio"
           >
             Precio
@@ -169,13 +169,13 @@ const PrendaForm = () => {
             onChange={(e) => setPrecio(e.target.value)}
           />
           {errors.precio && (
-            <p className="text-red-500 text-xs italic">
+            <p className="text-xs italic text-red-500">
               Precio es requerido y debe ser un número
             </p>
           )}
           <div className="mt-6">
             <button
-              className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              className="w-full px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none focus:shadow-outline"
               onClick={handleSave}
             >
               {id ? "Actualizar" : "Guardar"} Prenda

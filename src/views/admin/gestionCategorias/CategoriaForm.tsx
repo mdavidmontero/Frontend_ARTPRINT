@@ -66,26 +66,28 @@ const CategoriaForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">
+    <div className="container p-4 mx-auto md:p-6">
+      <h1 className="mb-6 text-2xl font-bold text-center">
         {id ? "Editar Categoría" : "Añadir Categoría"}
       </h1>
-      <input
-        className="w-full p-2 mb-4 border border-gray-300 rounded"
-        type="text"
-        placeholder="Nombre"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-      />
-      <button
-        className={`bg-purple-600 text-white px-4 py-2 rounded ${
-          loading ? "opacity-50" : ""
-        }`}
-        onClick={handleSave}
-        disabled={loading}
-      >
-        {loading ? "Guardando..." : "Guardar"}
-      </button>
+      <div className="w-full max-w-md mx-auto">
+        <input
+          className="w-full h-10 px-3 mb-4 border rounded"
+          type="text"
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+        <button
+          className={`w-full px-4 py-2 text-white bg-green-600 rounded shadow hover:bg-green-700 ${
+            loading ? "opacity-50" : ""
+          }`}
+          onClick={handleSave}
+          disabled={loading}
+        >
+          {loading ? "Guardando..." : "Guardar"}
+        </button>
+      </div>
     </div>
   );
 };

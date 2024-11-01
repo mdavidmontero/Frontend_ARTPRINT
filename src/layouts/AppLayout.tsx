@@ -43,17 +43,17 @@ export default function AppLayout({ setSearchQuery }: Props) {
       <>
         {user ? (
           <>
-            <div className="bg-customYellow h-5"></div>
-            <header className="bg-white py-1">
-              <div className="max-w-screen-2xl mx-auto px-4">
-                <div className="flex flex-col lg:flex-row justify-between items-center">
+            <div className="bg-[#718359] h-5"></div>
+            <header className="py-1 bg-customPantone">
+              <div className="px-4 mx-auto max-w-screen-2xl">
+                <div className="flex flex-col items-center justify-between lg:flex-row">
                   <div className="flex items-center lg:mb-0">
                     <Link to={"/"}>
                       <Logo />
                     </Link>
                   </div>
 
-                  <div className="flex flex-col lg:flex-row  items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                  <div className="flex flex-col items-center space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6">
                     <div className="items-center space-x-2 font-anto">
                       {user.role === "CLIENTE" && (
                         <input
@@ -65,14 +65,14 @@ export default function AppLayout({ setSearchQuery }: Props) {
                       )}
                     </div>
                     <Link to={"/admin/perfil"}>
-                      <div className="text-black  hidden lg:flex items-center space-x-2 font-anto">
+                      <div className="items-center hidden space-x-2 text-black lg:flex font-anto">
                         <CgProfile size={24} className="m-1" />
                         Perfil
                       </div>
                     </Link>
                     {user.role === "CLIENTE" && (
                       <Link to={"cliente/carritoCompras"}>
-                        <div className="text-black  hidden lg:flex items-center space-x-2">
+                        <div className="items-center hidden space-x-2 text-black lg:flex">
                           <RiShoppingBag4Fill size={24} className="m-1" />
                           <p className="font-anto">Carrito Compras</p>
                         </div>
@@ -81,7 +81,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
 
                     {user.role === "CLIENTE" && (
                       <Link to={"/cliente"}>
-                        <div className="text-black  hidden lg:flex items-center space-x-2">
+                        <div className="items-center hidden space-x-2 text-black lg:flex">
                           <RiShoppingBag4Fill size={24} className="m-1" />
                           <p className="font-anto">Productos</p>
                         </div>
@@ -89,7 +89,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
                     )}
                     {user.role === "ADMIN" && (
                       <Link to={"/admin"}>
-                        <div className="text-black  hidden lg:flex items-center space-x-2">
+                        <div className="items-center hidden space-x-2 text-black lg:flex">
                           <RiShoppingBag4Fill size={24} className="m-1" />
                           <p className="font-anto">Gestión Tienda</p>
                         </div>
@@ -98,7 +98,7 @@ export default function AppLayout({ setSearchQuery }: Props) {
 
                     <button
                       onClick={handleLogout}
-                      className="px-2 py-2 rounded text-black  hidden gap-1 lg:flex items-center space-x-2 font-anto"
+                      className="items-center hidden gap-1 px-2 py-2 space-x-2 text-black rounded lg:flex font-anto"
                     >
                       <IoExitOutline size={24} />
                       Cerrar Sesión
@@ -111,13 +111,13 @@ export default function AppLayout({ setSearchQuery }: Props) {
               </div>
             </header>
             {location.pathname !== "/cliente" && (
-              <div className={"bg-customBlue h-10 flex justify-evenly"}></div>
+              <div className={"bg-[#AFC7AD] h-10 flex justify-evenly"}></div>
             )}
 
-            <section className="max-w-screen-2xl mx-auto ">
+            <section className="mx-auto max-w-screen-2xl ">
               <Outlet />
             </section>
-            <div className="bg-customYellow h-6"></div>
+            <div className="h-6 bg-[#718359]"></div>
 
             <footer className="py-5">
               <p className="text-center">

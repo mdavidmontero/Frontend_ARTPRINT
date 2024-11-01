@@ -93,13 +93,13 @@ const EstampadoForm = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">
+    <div className="container p-4 mx-auto md:p-6">
+      <h1 className="mb-6 text-3xl font-bold text-center">
         {id ? "Editar Estampado" : "Añadir Estampado"}
       </h1>
       <div className="w-full max-w-md mx-auto">
         <input
-          className="w-full h-10 px-3 border rounded mb-4"
+          className="w-full h-10 px-3 mb-4 border rounded"
           type="text"
           placeholder="Nombre"
           value={nombre}
@@ -107,17 +107,17 @@ const EstampadoForm = () => {
         />
         <input
           type="number"
-          className="w-full h-10 px-3 border rounded mb-4"
+          className="w-full h-10 px-3 mb-4 border rounded"
           placeholder="Precio Adicional"
           value={precio}
           onChange={(e) => setPrecio(parseFloat(e.target.value))}
         />
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
             Seleccione una Imagen:
           </label>
           <div className="flex items-center">
-            <label className="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
+            <label className="px-4 py-2 text-white transition duration-300 bg-indigo-600 rounded cursor-pointer hover:bg-indigo-700">
               Subir Imagen
               <input
                 type="file"
@@ -134,8 +134,8 @@ const EstampadoForm = () => {
           </div>
         </div>
         {imageUrl && (
-          <div className="mb-4 flex flex-col  md:items-start items-center">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+          <div className="flex flex-col items-center mb-4 md:items-start">
+            <label className="block mb-2 text-sm font-bold text-gray-700">
               Imagen:
             </label>
             <div className="py-2">
@@ -149,7 +149,7 @@ const EstampadoForm = () => {
           </div>
         )}
         <button
-          className="w-full bg-purple-600 text-white px-4 py-2 rounded shadow hover:bg-purple-700"
+          className="w-full px-4 py-2 text-white bg-green-600 rounded shadow hover:bg-green-700"
           onClick={handleSave}
           disabled={loading}
         >

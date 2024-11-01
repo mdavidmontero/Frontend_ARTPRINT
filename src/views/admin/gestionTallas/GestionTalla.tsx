@@ -46,7 +46,7 @@ const GestionTalla = () => {
 
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container p-4 mx-auto">
         {loading ? (
           <div className="flex justify-center">
             <Spinner />
@@ -56,24 +56,24 @@ const GestionTalla = () => {
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl font-bold">Tallas</h1>
               <button
-                className="bg-purple-600 text-white px-9 py-2 rounded-full font-bold"
+                className="py-2 font-bold text-white bg-green-600 rounded-full hover:bg-green-700 px-9"
                 onClick={() => navigate("/admin/nuevaTalla")}
               >
                 Añadir Talla
               </button>
             </div>
             <input
-              className="bg-gray-300 border border-gray-300 rounded p-2 mb-4 w-2/5 placeholder:text-gray-600 placeholder:font-semibold"
+              className="w-2/5 p-2 mb-4 bg-gray-300 border border-gray-300 rounded placeholder:text-gray-600 placeholder:font-semibold"
               placeholder="Buscar"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <div className="mt-4 p-6 bg-white shadow w-full">
-              <div className="grid grid-cols-2  mb-2 font-semibold bg-customYellow text-black w-full rounded-md">
-                <span className="p-2 font-arima font-bold text-center">
+            <div className="w-full p-6 mt-4 bg-white shadow">
+              <div className="grid w-full grid-cols-2 mb-2 font-semibold text-black rounded-md bg-customYellow">
+                <span className="p-2 font-bold text-center font-arima">
                   Nombre
                 </span>
-                <span className="p-2 font-arima font-bold text-center">
+                <span className="p-2 font-bold text-center font-arima">
                   Acciones
                 </span>
               </div>
@@ -81,18 +81,18 @@ const GestionTalla = () => {
                 {filteredTallas.map((talla) => (
                   <li
                     key={talla.id}
-                    className="grid grid-cols-2 items-center border-b border-b-slate-400  py-2"
+                    className="grid items-center grid-cols-2 py-2 border-b border-b-slate-400"
                   >
                     <span className="text-center">{talla.nombre}</span>
-                    <div className="flex space-x-2 justify-center">
+                    <div className="flex justify-center space-x-2">
                       <button
-                        className="bg-customBlue text-white rounded-lg w-32 p-2 uppercase font-bold text-sm text-center"
+                        className="w-32 p-2 text-sm font-bold text-center text-white uppercase rounded-lg bg-customBlue"
                         onClick={() => handleEdit(talla.id)}
                       >
                         Editar
                       </button>
                       <button
-                        className="bg-customRed text-white rounded-lg w-32 p-2 uppercase font-bold text-center"
+                        className="w-32 p-2 font-bold text-center text-white uppercase rounded-lg bg-customRed"
                         onClick={() =>
                           navigate(
                             location.pathname + `?handleDelete=${talla.id}`
