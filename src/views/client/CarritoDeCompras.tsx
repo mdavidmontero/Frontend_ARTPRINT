@@ -157,7 +157,7 @@ const CarritoDeCompras = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex items-center justify-center h-screen">
         <Spinner />
       </div>
     );
@@ -165,8 +165,8 @@ const CarritoDeCompras = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-500 text-lg">{error}</p>
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg text-red-500">{error}</p>
       </div>
     );
   }
@@ -177,7 +177,7 @@ const CarritoDeCompras = () => {
         carrito.length === 0 ? "mb-20" : "mb-5"
       }  lg:w-2/3 mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-white rounded-lg shadow-md`}
     >
-      <p className="text-3xl text-center lg:text-start font-bold text-gray-900 mb-6">
+      <p className="mb-6 text-3xl font-bold text-center text-gray-900 lg:text-start">
         Resumen del Pedido
       </p>
       <ul role="list" className="divide-y divide-gray-200">
@@ -206,12 +206,12 @@ const CarritoDeCompras = () => {
       </ul>
 
       {carrito.length > 0 && (
-        <div className="mt-6 p-4 bg-gray-100 border-t border-gray-300 flex justify-between items-center rounded-b-lg">
+        <div className="flex items-center justify-between p-4 mt-6 bg-gray-100 border-t border-gray-300 rounded-b-lg">
           <h2 className="text-xl font-bold text-gray-800">
             Total: {formatCurrency(+totalCarrito)}
           </h2>
           <button
-            className="bg-purple-600 py-3 px-6 rounded-lg text-white font-bold"
+            className="px-6 py-3 font-bold text-white bg-green-600 rounded-lg"
             onClick={comprarCarrito}
           >
             Comprar

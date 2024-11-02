@@ -61,7 +61,7 @@ export default function LoginView() {
         noValidate
       >
         <div className="flex flex-col gap-5">
-          <label className="text-2xl font-normal">Email</label>
+          <label className="text-xl font-normal">Email</label>
 
           <input
             id="email"
@@ -80,7 +80,7 @@ export default function LoginView() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <label className="text-2xl font-normal">Password</label>
+          <label className="text-xl font-normal">Password</label>
 
           <input
             type="password"
@@ -104,9 +104,14 @@ export default function LoginView() {
       <nav className="flex flex-col mt-10 space-y-4">
         <Link
           to={"/auth/register"}
-          className="font-normal text-center text-gray-900"
+          className="font-normal text-center text-gray-300"
         >
-          ¿No tienes Cuenta? Crear una{" "}
+          ¿No tienes Cuenta?
+          {""}{" "}
+          <span className="italic font-bold text-gray-200 underline">
+            {" "}
+            Crear una{" "}
+          </span>
         </Link>
       </nav>
     </>

@@ -90,12 +90,12 @@ export const GestionWhatsApp: React.FC = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl py-5 mx-auto">
       <h1 className="text-3xl font-black">WhatsApp</h1>
       <p className="mt-5 font-light text-gray-500 capitalize text-1xl">
         Aquí puedes Agregar el número donde recibiras los Pedidos
       </p>
-      <div className="p-10 mt-8 space-y-5 bg-white rounded-lg shadow-lg">
+      <div className="p-10 mx-10 mt-8 space-y-5 bg-white rounded-lg shadow-lg">
         <div className="mb-5 space-y-3">
           <label className="text-sm font-bold uppercase" htmlFor="numero">
             Número WhatsApp
@@ -129,7 +129,7 @@ export const GestionWhatsApp: React.FC = () => {
       </div>
 
       {modalVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed flex items-center justify-center bg-black bg-opacity-50">
           <div className="p-4 bg-white rounded">
             <ul>
               {countries.map((country) => (
@@ -147,7 +147,7 @@ export const GestionWhatsApp: React.FC = () => {
               ))}
             </ul>
             <button
-              className="px-4 py-2 mt-2 font-bold text-white bg-purple-600 rounded"
+              className="px-4 py-2 mt-2 font-bold text-white bg-green-600 rounded"
               onClick={() => setModalVisible(false)}
             >
               Cerrar

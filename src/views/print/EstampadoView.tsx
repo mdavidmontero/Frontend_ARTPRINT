@@ -9,7 +9,7 @@ const DecoracionScreen = () => {
   const inputDressRef = useRef<HTMLInputElement>(null);
   const { editor, onReady } = useFabricJSEditor();
   // const [selectedColor, setSelectedColor] = useState<string>("#ff0000");
-  const [brushWidth, setBrushWidth] = useState<number>(5);
+  // const [brushWidth, setBrushWidth] = useState<number>(5);
   const [history, setHistory] = useState<any[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false);
@@ -52,12 +52,12 @@ const DecoracionScreen = () => {
   //   }
   // };
 
-  const handleBrushWidthChange = (width: number) => {
-    setBrushWidth(width);
-    if (editor?.canvas) {
-      editor.canvas.freeDrawingBrush.width = width;
-    }
-  };
+  // const handleBrushWidthChange = (width: number) => {
+  //   setBrushWidth(width);
+  //   if (editor?.canvas) {
+  //     editor.canvas.freeDrawingBrush.width = width;
+  //   }
+  // };
 
   const toggleDrawingMode = () => {
     if (editor?.canvas) {
@@ -312,7 +312,7 @@ const DecoracionScreen = () => {
         <button onClick={handleDelete} className="p-1 text-white rounded-lg">
           Eliminar Objeto
         </button>
-
+        {/* 
         <label className="text-white">Tamaño de Brocha</label>
         <input
           type="range"
@@ -320,7 +320,7 @@ const DecoracionScreen = () => {
           max={50}
           value={brushWidth}
           onChange={(e) => handleBrushWidthChange(Number(e.target.value))}
-        />
+        /> */}
       </div>
     </div>
   );

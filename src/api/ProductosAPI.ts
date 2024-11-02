@@ -20,7 +20,7 @@ const productosRef = collection(db, "productos");
 export const crearProducto = async (producto: Producto): Promise<void> => {
   try {
     const docRef = await addDoc(productosRef, producto);
-    await updateDoc(docRef, { id: docRef.id }); // Actualiza el producto con el ID generado por Firebase
+    await updateDoc(docRef, { id: docRef.id });
   } catch (error) {
     console.error("Error al crear producto:", error);
     throw error;

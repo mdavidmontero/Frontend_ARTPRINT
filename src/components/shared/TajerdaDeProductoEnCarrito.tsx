@@ -21,26 +21,26 @@ const TarjetaDeProductoEnCarrito: React.FC<Props> = ({
   onDecrementar,
 }) => {
   return (
-    <li className="flex flex-col px-4 sm:flex-row space-x-6 py-6 items-center bg-white rounded-lg shadow-md overflow-hidden">
+    <li className="flex flex-col items-center px-4 py-6 space-x-6 overflow-hidden bg-white rounded-lg shadow-md sm:flex-row">
       <img
-        className="h-32 w-32 sm:h-56 sm:w-auto flex-none rounded-md object-cover"
+        className="flex-none object-cover w-32 h-32 rounded-md sm:h-56 sm:w-auto"
         src={imagen}
         alt={titulo}
       />
-      <div className="flex-auto space-y-2 mt-4 sm:mt-0 sm:ml-6">
+      <div className="flex-auto mt-4 space-y-2 sm:mt-0 sm:ml-6">
         <h3 className="text-xl font-semibold text-gray-900">{titulo}</h3>
         <p className="text-lg text-gray-600">{formatCurrency(+precio)}</p>
-        <div className="flex items-center justify-start lg:items-start  space-x-4">
+        <div className="flex items-center justify-start space-x-4 lg:items-start">
           <button
             onClick={onDecrementar}
-            className="px-4 py-1 rounded bg-purple-600 text-white font-bold hover:bg-purple-700 transition duration-300"
+            className="px-4 py-1 font-bold text-white transition duration-300 rounded bg-customYellow "
           >
             -
           </button>
           <span className="text-sm text-gray-700">{cantidad}</span>
           <button
             onClick={onIncrementar}
-            className="px-4 py-1 rounded bg-purple-600 text-white font-bold hover:bg-purple-700 transition duration-300"
+            className="px-4 py-1 font-bold text-white transition duration-300 rounded bg-customYellow"
           >
             +
           </button>

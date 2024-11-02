@@ -16,7 +16,7 @@ import Spinner from "../../components/spinner/Spinner";
 import DecoracionScreen from "../print/EstampadoView";
 import { obtenerTodosLosEstampados } from "../../api/AccesoriosAPI";
 import CarruselEstampados from "../../components/shared/CarrouselEstampado";
-import { useImageUpload } from "../../api/UploadImages";
+import { useImageUploadDecoracion } from "../../api/UploadImages";
 
 const carritoController = new CarritoController();
 
@@ -141,7 +141,7 @@ export const DetallesDeProducto = () => {
       setLoadingUpload(true);
       const file = e.target.files?.[0];
       if (file) {
-        const imageUrl = await useImageUpload(file);
+        const imageUrl = await useImageUploadDecoracion(file);
         // setImageUrl(imageUrl);
         setOcultarDecoracion(!ocultarDecoracion);
         setSelectedEstampado(imageUrl);

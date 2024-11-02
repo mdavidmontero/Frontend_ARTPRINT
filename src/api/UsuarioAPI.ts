@@ -20,7 +20,6 @@ import {
 import { Usuario } from "../types";
 import { db } from "../config/firebase";
 
-// Función para crear un usuario en Firestore
 export async function crearUsuario(usuario: Usuario): Promise<void> {
   try {
     const docuRef = doc(db, `usuarios/${usuario.id}`);
@@ -31,14 +30,12 @@ export async function crearUsuario(usuario: Usuario): Promise<void> {
   }
 }
 
-// Función para crear un usuario y autenticación en Firebase
 export async function crearUsuarioYAutenticacion(
   usuario: Usuario,
   password: string
 ): Promise<void> {
   let userCredential: UserCredential | null = null;
   try {
-    // Paso 1: Crear usuario en la autenticación de Firebase
     const auth = getAuth();
     userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -46,7 +43,6 @@ export async function crearUsuarioYAutenticacion(
       password
     );
 
-    // Paso 2: Guardar información adicional en Firestore
     if (userCredential.user) {
       const { uid } = userCredential.user;
       const usuarioConId: Usuario = { ...usuario, id: uid };
@@ -54,7 +50,6 @@ export async function crearUsuarioYAutenticacion(
       await setDoc(docRef, usuarioConId);
     }
   } catch (error) {
-    // Si hay un error, eliminar el usuario recién creado en la autenticación si es necesario
     if (userCredential && userCredential.user) {
       await userCredential.user.delete();
     }
@@ -63,7 +58,6 @@ export async function crearUsuarioYAutenticacion(
   }
 }
 
-// Función para obtener un usuario por su ID desde Firestore
 export async function obtenerUsuarioPorId(
   userId: string
 ): Promise<Usuario | null> {
@@ -84,7 +78,6 @@ export async function obtenerUsuarioPorId(
   }
 }
 
-// Función para actualizar un usuario en Firestore
 export async function actualizarUsuario(
   userId: string,
   newData: Partial<Usuario>
@@ -104,7 +97,6 @@ export async function actualizarUsuario(
   }
 }
 
-// Función para eliminar un usuario de Firestore
 export async function eliminarUsuario(userId: string): Promise<void> {
   try {
     const userDoc = doc(db, "usuarios", userId);
@@ -115,7 +107,6 @@ export async function eliminarUsuario(userId: string): Promise<void> {
   }
 }
 
-// Función para obtener todos los usuarios desde Firestore
 export async function obtenerUsuarios(): Promise<Usuario[] | null> {
   try {
     const usuariosRef = collection(db, "usuarios");
